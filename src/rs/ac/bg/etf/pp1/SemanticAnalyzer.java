@@ -79,12 +79,18 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// PROMENLJIVA
 	public void visit(VarDeclSingle varDecl) {
-		report_info("Deklarisana promenljiva "+ varDecl.getVarName(), varDecl);
-		
-		Struct type = (varDecl.getArrayOptional() instanceof Array) ? 
+		Obj obj;
+		if (varDecl.getArrayOptional() instanceof Array) {
+			obj = SymbolTable.insert(Obj.Var, varDecl.getVarName(), new Struct(Struct.Array));
+			obj.getType().setElementType(currentType);
+		}
+		else
+			obj = SymbolTable.insert(Obj.Var, varDecl.getVarName(), currentType);
+		report_info("Deklarisana promenljiva " + varDecl.getVarName() + " tipa " + obj.getType().getKind(), varDecl);
+		/*Struct type = (varDecl.getArrayOptional() instanceof Array) ? 
 				new Struct(Struct.Array, currentType) : currentType;
 		
-		SymbolTable.insert(Obj.Var, varDecl.getVarName(), type);
+		SymbolTable.insert(Obj.Var, varDecl.getVarName(), type);*/
 	}
 	
 	
@@ -92,7 +98,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	public void visit(ConstDeclSingle constDecl) {
 		int kind = currentType.getKind();
 		if (kind != Struct.Char &&
-			kind != Struct.Int) {
+			kind != Struct.Int &&
+			kind != Struct.Bool) {
 			report_error("Nije moguce definisati konstantu ovog tipa", constDecl);
 		} 
 		else {
@@ -127,6 +134,13 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	}
 
 	
+	// POTPIS MAIN METODE
+	public void visit(MethodName methodName) {
+		Obj mainMethod = SymbolTable.insert(Obj.Meth, "main", SymbolTable.noType);
+		currentMethod = mainMethod;
+		SymbolTable.openScope();
+	}
+	
 	// MAIN METODA
 	public void visit(MethodDecl methodDecl) {
 		SymbolTable.chainLocalSymbols(currentMethod);
@@ -144,41 +158,54 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		if ((desObj.getKind() != Obj.Var) && (desObj.getKind() != Obj.Elem))
 			report_error("Vrednost izraza je moguce dodeliti samo promenljivoj ili elementu niza", assignment);
 		
-		if (expression.struct.getKind() == Struct.Array) {
-			if (!expression.struct.getElemType().assignableTo(desObj.getType()))
-				report_error("Nekompatibilni tipovi u dodeli vrednosti ", assignment);	
-		}
-		else if (desObj.getType().getKind() == Struct.Array) {
-			if (!expression.struct.assignableTo(desObj.getType().getElemType()))
+		if (!expression.struct.assignableTo(desObj.getType())) {
+			if (expression.struct.getKind() == Struct.Array) {
+				//if (!expression.struct.getElemType().assignableTo(desObj.getType()))
+				if (desObj.getType().getKind() != Struct.Array)
+					report_error("Nekompatibilni tipovi u dodeli vrednosti ", assignment);
+				else if (!expression.struct.getElemType().assignableTo(desObj.getType().getElemType()))
+					report_error("Nekompatibilni tipovi u dodeli vrednosti ", assignment);
+			}
+			else if (desObj.getType().getKind() == Struct.Array) {
+				if (!(desObj.getFpPos() == 1 && expression.struct.assignableTo(desObj.getType().getElemType())))
+					report_error("Nekompatibilni tipovi u dodeli vrednosti ", assignment);
+			}
+			else
 				report_error("Nekompatibilni tipovi u dodeli vrednosti ", assignment);
 		}
-		else if (!expression.struct.assignableTo(desObj.getType()))
-			report_error("Nekompatibilni tipovi u dodeli vrednosti ", assignment);
 	}
 	
 	
 	// INKREMENTIRANJE
 	public void visit(IncExpr increment) {
-		Designator designator = increment.getDesignator();
-		if ((designator.obj.getKind() != Obj.Var) && (designator.obj.getKind() != Obj.Elem)
-				|| designator.obj.getType().getKind() != Struct.Int)
-			report_error("Moguce je inkrementirati samo promenljivu ili elemnt niza celobrojnog tipa", increment);
+		Obj designator = increment.getDesignator().obj;
+		if ((designator.getKind() != Obj.Var) && (designator.getKind() != Obj.Elem)
+				|| designator.getType().getKind() != Struct.Int) {
+			if (!(designator.getType().getKind() == Struct.Array
+					&& designator.getType().getElemType().getKind() == Struct.Int
+					&& designator.getFpPos() == 1))
+				report_error("Moguce je inkrementirati samo promenljivu ili element niza celobrojnog tipa", increment);
+		}
 	}
 	
 	
 	// DEKREMENTIRANJE
 	public void visit(DecExpr decrement) {
-		Designator designator = decrement.getDesignator();
-		if ((designator.obj.getKind() != Obj.Var) && (designator.obj.getKind() != Obj.Elem)
-				|| designator.obj.getType().getKind() != Struct.Int)
-			report_error("Moguce je dekrementirati samo promenljivu ili elemnt niza celobrojnog tipa", decrement);
+		Obj designator = decrement.getDesignator().obj;
+		if ((designator.getKind() != Obj.Var) && (designator.getKind() != Obj.Elem)
+				|| designator.getType().getKind() != Struct.Int) {
+			if (!(designator.getType().getKind() == Struct.Array
+					&& designator.getType().getElemType().getKind() == Struct.Int
+					&& designator.getFpPos() == 1))
+				report_error("Moguce je inkrementirati samo promenljivu ili element niza celobrojnog tipa", decrement);
+		}
 	}
 	
 
 	// ISPISIVANJE
 	public void visit(PrintStatement printStmt){
 		int exprType = printStmt.getExpression().struct.getKind();
-		if ((exprType != Struct.Int) && (exprType != Struct.Char)) {
+		if ((exprType != Struct.Int) && (exprType != Struct.Char) && (exprType != Struct.Bool)) {
 			report_error("Nije moguce vrsiti ispis zadatog tipa", printStmt);
 		}
 	}
@@ -192,7 +219,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		}
 		if ((designator.obj.getType().getKind() != Struct.Int) &&
 			(designator.obj.getType().getKind() != Struct.Char) &&
-			(designator.obj.getType().getKind() != Struct.Bool)) {
+			(designator.obj.getType().getKind() != Struct.Bool) &&
+			!(designator.obj.getType().getKind() == Struct.Array && designator.obj.getFpPos() == 1)) {
 			report_error("Upis je moguce vrsiti samo u celobrojni, znakovni ili logicki tip", readStmt);
 		}
 	}
@@ -205,6 +233,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 			report_error("Ime " + designator.getDesignatorName() + " nije deklarisano! ", designator);
 		}
 		designator.obj = obj;
+		if (designator.getArrayElement() instanceof ArrayElem) // koristimo polje druge namene za ove potrebe
+			designator.obj.setFpPos(1);
+		else
+			designator.obj.setFpPos(0);
 	}
 	
 	
@@ -219,6 +251,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// KONJUNKCIJA
 	public void visit(CondAnd condition) {
+		if (condition.getCondFact().obj.getType().getKind() != Struct.Bool) { 
+			report_error("Uslov mora biti logickog tipa", condition);
+		}
 		condition.struct = condition.getCondFact().obj.getType(); 
 	}
 	
@@ -268,8 +303,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// NEGATIVAN BROJ
 	public void visit(NegativeTerm expression) {
-		if (expression.getTerm().struct.getKind() != Struct.Int) {
-			report_error("Tip izraza mora biti celobrojni", expression);
+		Struct type = expression.getTerm().struct;
+		if (type.getKind() != Struct.Int) {
+			//if (!(type.getKind() == Struct.Array && type.getElemType().getKind() == Struct.Int))
+				report_error("Tip izraza mora biti celobrojni", expression);
 		}
 		expression.struct = expression.getTerm().struct;
 	}
@@ -285,12 +322,14 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	public void visit(NotFirstTerm expression) {
 		Struct expressionType = expression.getExpression().struct;
 		Struct termType = expression.getTerm().struct;
-		
+		expression.struct = expression.getTerm().struct;
 		if (!expressionType.compatibleWith(termType)) {
 			report_error("Tipovi izraza nisu kompatibilni", expression);
 		}
 		if (!(expressionType.getKind() == Struct.Int && termType.getKind() == Struct.Int)) {
-			report_error("Tipovi izraza moraju biti celobrojni", expression);
+			//if (!(expressionType.getKind() == Struct.Array && expressionType.getElemType().getKind() == Struct.Int) ||
+			//		!(termType.getKind() == Struct.Array && termType.getElemType().getKind() == Struct.Int))
+				report_error("Tipovi izraza moraju biti celobrojni", expression);
 		}
 	}
 	
@@ -301,25 +340,37 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	
 	public void visit(TermExpr termExpr) {
-		termExpr.struct = termExpr.getTerm().struct;
-		Struct factorType = termExpr.getFactor().struct;
-		
-		if (!(termExpr.struct.getKind() == Struct.Int && factorType.getKind() == Struct.Int)) {
-			report_error("Tipovi izraza moraju biti celobrojni", termExpr);
+		termExpr.struct = termExpr.getFactor().struct;
+		Struct termType = termExpr.getTerm().struct;
+		if (!(termExpr.struct.getKind() == Struct.Int && termType.getKind() == Struct.Int)) {
+			//if (!(termExpr.struct.getKind() == Struct.Array && termExpr.struct.getElemType().getKind() == Struct.Int) ||
+			//		!(termType.getKind() == Struct.Array && termType.getElemType().getKind() == Struct.Int))
+				report_error("Tipovi izraza moraju biti celobrojni", termExpr);
 		}
 	}
 	
 	
 	public void visit(NewArrayFactor newArray) {
-		if (newArray.getExpression().struct.getKind() != Struct.Int) {
-			report_error("Tipovi izraza moraju biti celobrojni", newArray);
+		Struct type = newArray.getExpression().struct;
+		if (type.getKind() != Struct.Int) {
+			//if (!(type.getKind() == Struct.Array && type.getElemType().getKind() == Struct.Int) )
+				report_error("Tipovi izraza moraju biti celobrojni", newArray);
 		}
-		newArray.struct = newArray.getType().struct;
+		newArray.struct = new Struct(Struct.Array, newArray.getType().struct);
+		//report_info("New Array Factor tip: " + newArray.struct.getKind(), newArray);
 	}
 	
 	
 	public void visit(ExprFactor exprFactor) {
 		exprFactor.struct = exprFactor.getExpression().struct;
+	}
+	
+	
+	public void visit(DesFactor desFactor) {
+		//desFactor.struct = desFactor.getDesignator().obj.getType();
+		Obj designator = desFactor.getDesignator().obj;
+		desFactor.struct = (designator.getFpPos() == 1) ?
+				designator.getType().getElemType() : designator.getType();
 	}
 	
 	
@@ -339,11 +390,13 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	public void visit(ArrayElem arrayElement) {
 		Expression expression = arrayElement.getExpression();
 		int expressionType = arrayElement.getExpression().struct.getKind();
-		if (expressionType != Struct.Int &&
-				!(expressionType == Struct.Array && expression.struct.getElemType().getKind() == Struct.Int)) {
-			report_error("Tipovi izraza moraju biti celobrojni", arrayElement);
+		if (expressionType != Struct.Int) {
+			//if (!(expressionType == Struct.Array && expression.struct.getElemType().getKind() == Struct.Int)) {
+				report_error("Tipovi izraza moraju biti celobrojni, tip" + expressionType, arrayElement);
+			//}
 		}
 	}
+	
 	
 	public boolean passed() {
 		return !errorDetected;

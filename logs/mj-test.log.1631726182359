@@ -1,0 +1,453 @@
+INFO  18:59:51,268 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test.mj
+INFO  18:59:51,304 - #2 program
+INFO  18:59:51,304 - #50 test301
+INFO  18:59:51,304 - #8 const
+INFO  18:59:51,306 - #50 int
+INFO  18:59:51,306 - #50 nula
+INFO  18:59:51,306 - #41 =
+INFO  18:59:51,306 - #47 0
+INFO  18:59:51,307 - #12 ;
+INFO  18:59:51,308 - #8 const
+INFO  18:59:51,308 - #50 int
+INFO  18:59:51,308 - #50 jedan
+INFO  18:59:51,308 - #41 =
+INFO  18:59:51,308 - #47 1
+INFO  18:59:51,309 - #12 ;
+INFO  18:59:51,309 - #8 const
+INFO  18:59:51,309 - #50 int
+INFO  18:59:51,309 - #50 pet
+INFO  18:59:51,309 - #41 =
+INFO  18:59:51,309 - #47 5
+INFO  18:59:51,309 - #12 ;
+INFO  18:59:51,310 - #50 int
+INFO  18:59:51,310 - #50 niz
+INFO  18:59:51,310 - #22 [
+INFO  18:59:51,310 - #23 ]
+INFO  18:59:51,310 - #12 ;
+INFO  18:59:51,312 - #50 char
+INFO  18:59:51,313 - #50 nizch
+INFO  18:59:51,313 - #22 [
+INFO  18:59:51,313 - #23 ]
+INFO  18:59:51,313 - #12 ;
+INFO  18:59:51,313 - #50 char
+INFO  18:59:51,313 - #50 c
+INFO  18:59:51,313 - #12 ;
+INFO  18:59:51,314 - #20 {
+INFO  18:59:51,314 - #16 void
+INFO  18:59:51,315 - #50 main
+INFO  18:59:51,315 - #24 (
+INFO  18:59:51,315 - #25 )
+INFO  18:59:51,316 - #50 int
+INFO  18:59:51,316 - #50 bodovi
+INFO  18:59:51,316 - #12 ;
+INFO  18:59:51,317 - #50 bool
+INFO  18:59:51,317 - #50 bt
+INFO  18:59:51,317 - #12 ;
+INFO  18:59:51,317 - #20 {
+INFO  18:59:51,317 - #50 c
+INFO  18:59:51,318 - #41 =
+INFO  18:59:51,319 - #48 c
+INFO  18:59:51,320 - #12 ;
+INFO  18:59:51,320 - #50 bodovi
+INFO  18:59:51,321 - #41 =
+INFO  18:59:51,321 - #47 0
+INFO  18:59:51,321 - #12 ;
+INFO  18:59:51,322 - #50 bodovi
+INFO  18:59:51,322 - #42 ++
+INFO  18:59:51,322 - #12 ;
+INFO  18:59:51,323 - #50 bodovi
+INFO  18:59:51,323 - #41 =
+INFO  18:59:51,323 - #50 bodovi
+INFO  18:59:51,323 - #34 +
+INFO  18:59:51,323 - #50 jedan
+INFO  18:59:51,324 - #12 ;
+INFO  18:59:51,326 - #50 bodovi
+INFO  18:59:51,326 - #41 =
+INFO  18:59:51,327 - #50 bodovi
+INFO  18:59:51,327 - #36 *
+INFO  18:59:51,327 - #50 pet
+INFO  18:59:51,328 - #12 ;
+INFO  18:59:51,328 - #50 bodovi
+INFO  18:59:51,329 - #43 --
+INFO  18:59:51,329 - #12 ;
+INFO  18:59:51,329 - #15 print
+INFO  18:59:51,329 - #24 (
+INFO  18:59:51,329 - #50 bodovi
+INFO  18:59:51,329 - #25 )
+INFO  18:59:51,330 - #12 ;
+INFO  18:59:51,330 - #15 print
+INFO  18:59:51,330 - #24 (
+INFO  18:59:51,330 - #50 niz
+INFO  18:59:51,330 - #25 )
+INFO  18:59:51,330 - #12 ;
+INFO  18:59:51,330 - #50 niz
+INFO  18:59:51,331 - #41 =
+INFO  18:59:51,331 - #7 new
+INFO  18:59:51,331 - #50 int
+INFO  18:59:51,331 - #22 [
+INFO  18:59:51,332 - #47 3
+INFO  18:59:51,332 - #23 ]
+INFO  18:59:51,332 - #12 ;
+INFO  18:59:51,332 - #50 niz
+INFO  18:59:51,333 - #22 [
+INFO  18:59:51,333 - #50 nula
+INFO  18:59:51,333 - #23 ]
+INFO  18:59:51,333 - #41 =
+INFO  18:59:51,333 - #50 jedan
+INFO  18:59:51,333 - #12 ;
+INFO  18:59:51,334 - #50 niz
+INFO  18:59:51,334 - #22 [
+INFO  18:59:51,334 - #47 1
+INFO  18:59:51,334 - #23 ]
+INFO  18:59:51,334 - #41 =
+INFO  18:59:51,334 - #47 2
+INFO  18:59:51,334 - #12 ;
+INFO  18:59:51,335 - #50 niz
+INFO  18:59:51,335 - #22 [
+INFO  18:59:51,335 - #50 niz
+INFO  18:59:51,335 - #22 [
+INFO  18:59:51,335 - #50 jedan
+INFO  18:59:51,335 - #23 ]
+INFO  18:59:51,335 - #23 ]
+INFO  18:59:51,335 - #41 =
+INFO  18:59:51,336 - #50 niz
+INFO  18:59:51,336 - #22 [
+INFO  18:59:51,336 - #50 niz
+INFO  18:59:51,336 - #22 [
+INFO  18:59:51,336 - #47 0
+INFO  18:59:51,336 - #23 ]
+INFO  18:59:51,336 - #23 ]
+INFO  18:59:51,337 - #36 *
+INFO  18:59:51,337 - #47 3
+INFO  18:59:51,337 - #12 ;
+INFO  18:59:51,337 - #50 bodovi
+INFO  18:59:51,337 - #41 =
+INFO  18:59:51,337 - #50 niz
+INFO  18:59:51,337 - #22 [
+INFO  18:59:51,338 - #47 2
+INFO  18:59:51,338 - #23 ]
+INFO  18:59:51,338 - #37 /
+INFO  18:59:51,338 - #50 niz
+INFO  18:59:51,340 - #22 [
+INFO  18:59:51,340 - #47 0
+INFO  18:59:51,340 - #23 ]
+INFO  18:59:51,340 - #12 ;
+INFO  18:59:51,340 - #15 print
+INFO  18:59:51,341 - #24 (
+INFO  18:59:51,341 - #50 bodovi
+INFO  18:59:51,341 - #25 )
+INFO  18:59:51,341 - #12 ;
+INFO  18:59:51,341 - #15 print
+INFO  18:59:51,341 - #24 (
+INFO  18:59:51,342 - #50 niz
+INFO  18:59:51,342 - #22 [
+INFO  18:59:51,342 - #47 2
+INFO  18:59:51,342 - #23 ]
+INFO  18:59:51,342 - #25 )
+INFO  18:59:51,342 - #12 ;
+INFO  18:59:51,342 - #50 nizch
+INFO  18:59:51,343 - #41 =
+INFO  18:59:51,343 - #7 new
+INFO  18:59:51,343 - #50 char
+INFO  18:59:51,343 - #22 [
+INFO  18:59:51,343 - #47 3
+INFO  18:59:51,343 - #23 ]
+INFO  18:59:51,343 - #12 ;
+INFO  18:59:51,343 - #50 nizch
+INFO  18:59:51,343 - #22 [
+INFO  18:59:51,343 - #47 0
+INFO  18:59:51,343 - #23 ]
+INFO  18:59:51,344 - #41 =
+INFO  18:59:51,344 - #48 a
+INFO  18:59:51,344 - #12 ;
+INFO  18:59:51,344 - #50 nizch
+INFO  18:59:51,344 - #22 [
+INFO  18:59:51,344 - #50 jedan
+INFO  18:59:51,344 - #23 ]
+INFO  18:59:51,344 - #41 =
+INFO  18:59:51,344 - #48 b
+INFO  18:59:51,344 - #12 ;
+INFO  18:59:51,345 - #50 nizch
+INFO  18:59:51,345 - #22 [
+INFO  18:59:51,345 - #50 pet
+INFO  18:59:51,345 - #35 -
+INFO  18:59:51,345 - #47 3
+INFO  18:59:51,345 - #23 ]
+INFO  18:59:51,346 - #41 =
+INFO  18:59:51,346 - #48 c
+INFO  18:59:51,346 - #12 ;
+INFO  18:59:51,346 - #15 print
+INFO  18:59:51,346 - #24 (
+INFO  18:59:51,346 - #50 nizch
+INFO  18:59:51,346 - #22 [
+INFO  18:59:51,346 - #47 1
+INFO  18:59:51,346 - #23 ]
+INFO  18:59:51,346 - #25 )
+INFO  18:59:51,346 - #12 ;
+INFO  18:59:51,347 - #15 print
+INFO  18:59:51,347 - #24 (
+INFO  18:59:51,347 - #50 nizch
+INFO  18:59:51,347 - #22 [
+INFO  18:59:51,347 - #50 jedan
+INFO  18:59:51,347 - #36 *
+INFO  18:59:51,347 - #47 2
+INFO  18:59:51,347 - #23 ]
+INFO  18:59:51,347 - #25 )
+INFO  18:59:51,347 - #12 ;
+INFO  18:59:51,347 - #50 bodovi
+INFO  18:59:51,347 - #41 =
+INFO  18:59:51,347 - #50 bodovi
+INFO  18:59:51,347 - #34 +
+INFO  18:59:51,347 - #24 (
+INFO  18:59:51,347 - #50 pet
+INFO  18:59:51,347 - #36 *
+INFO  18:59:51,347 - #50 jedan
+INFO  18:59:51,348 - #35 -
+INFO  18:59:51,348 - #47 1
+INFO  18:59:51,348 - #25 )
+INFO  18:59:51,348 - #36 *
+INFO  18:59:51,348 - #50 bodovi
+INFO  18:59:51,348 - #35 -
+INFO  18:59:51,348 - #24 (
+INFO  18:59:51,348 - #47 3
+INFO  18:59:51,348 - #38 %
+INFO  18:59:51,349 - #47 2
+INFO  18:59:51,349 - #34 +
+INFO  18:59:51,349 - #47 3
+INFO  18:59:51,349 - #36 *
+INFO  18:59:51,350 - #47 2
+INFO  18:59:51,350 - #35 -
+INFO  18:59:51,350 - #47 3
+INFO  18:59:51,350 - #25 )
+INFO  18:59:51,350 - #12 ;
+INFO  18:59:51,350 - #15 print
+INFO  18:59:51,350 - #24 (
+INFO  18:59:51,350 - #50 bodovi
+INFO  18:59:51,350 - #25 )
+INFO  18:59:51,350 - #12 ;
+INFO  18:59:51,350 - #11 read
+INFO  18:59:51,350 - #24 (
+INFO  18:59:51,350 - #50 bodovi
+INFO  18:59:51,350 - #25 )
+INFO  18:59:51,350 - #12 ;
+INFO  18:59:51,350 - #50 bt
+INFO  18:59:51,350 - #41 =
+INFO  18:59:51,350 - #49 1
+INFO  18:59:51,350 - #12 ;
+INFO  18:59:51,350 - #51 if
+INFO  18:59:51,350 - #24 (
+INFO  18:59:51,350 - #50 bt
+INFO  18:59:51,350 - #25 )
+INFO  18:59:51,351 - #20 {
+INFO  18:59:51,351 - #15 print
+INFO  18:59:51,351 - #24 (
+INFO  18:59:51,351 - #50 bodovi
+INFO  18:59:51,351 - #25 )
+INFO  18:59:51,351 - #12 ;
+INFO  18:59:51,351 - #21 }
+INFO  18:59:51,351 - #52 else
+INFO  18:59:51,351 - #20 {
+INFO  18:59:51,351 - #15 print
+INFO  18:59:51,351 - #24 (
+INFO  18:59:51,351 - #50 bodovi
+INFO  18:59:51,351 - #34 +
+INFO  18:59:51,351 - #47 10
+INFO  18:59:51,351 - #25 )
+INFO  18:59:51,351 - #12 ;
+INFO  18:59:51,351 - #21 }
+INFO  18:59:51,351 - #51 if
+INFO  18:59:51,352 - #24 (
+INFO  18:59:51,352 - #50 bodovi
+INFO  18:59:51,352 - #31 >
+INFO  18:59:51,352 - #47 10
+INFO  18:59:51,353 - #25 )
+INFO  18:59:51,353 - #20 {
+INFO  18:59:51,353 - #15 print
+INFO  18:59:51,353 - #24 (
+INFO  18:59:51,353 - #48 +
+INFO  18:59:51,353 - #25 )
+INFO  18:59:51,353 - #12 ;
+INFO  18:59:51,353 - #21 }
+INFO  18:59:51,353 - #52 else
+INFO  18:59:51,353 - #20 {
+INFO  18:59:51,353 - #15 print
+INFO  18:59:51,353 - #24 (
+INFO  18:59:51,353 - #48 -
+INFO  18:59:51,353 - #25 )
+INFO  18:59:51,353 - #12 ;
+INFO  18:59:51,353 - #21 }
+INFO  18:59:51,353 - #21 }
+INFO  18:59:51,353 - #21 }
+INFO  18:59:51,361 - Deklarisana promenljiva niz na liniji 9
+INFO  18:59:51,362 - Deklarisana promenljiva nizch na liniji 10
+INFO  18:59:51,362 - Deklarisana promenljiva c na liniji 11
+INFO  18:59:51,362 - Deklarisana promenljiva bodovi na liniji 15
+INFO  18:59:51,362 - Deklarisana promenljiva bt na liniji 16
+INFO  18:59:51,362 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       bodovi
+        NotArrayElem(
+        ) [NotArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 24
+INFO  18:59:51,362 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       niz
+        NotArrayElem(
+        ) [NotArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 25
+INFO  18:59:51,362 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       bodovi
+        NotArrayElem(
+        ) [NotArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 32
+INFO  18:59:51,362 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       niz
+        ArrayElem(
+          PositiveTerm(
+            TermFactor(
+              ConstFactor(
+                NumberVal(
+                 2
+                ) [NumberVal]
+              ) [ConstFactor]
+            ) [TermFactor]
+          ) [PositiveTerm]
+        ) [ArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 33
+INFO  18:59:51,363 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       nizch
+        ArrayElem(
+          PositiveTerm(
+            TermFactor(
+              ConstFactor(
+                NumberVal(
+                 1
+                ) [NumberVal]
+              ) [ConstFactor]
+            ) [TermFactor]
+          ) [PositiveTerm]
+        ) [ArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 40
+INFO  18:59:51,363 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       nizch
+        ArrayElem(
+          PositiveTerm(
+            TermExpr(
+              TermFactor(
+                DesFactor(
+                  Designator(
+                   jedan
+                    NotArrayElem(
+                    ) [NotArrayElem]
+                  ) [Designator]
+                ) [DesFactor]
+              ) [TermFactor]
+              MulOperator(
+              ) [MulOperator]
+              ConstFactor(
+                NumberVal(
+                 2
+                ) [NumberVal]
+              ) [ConstFactor]
+            ) [TermExpr]
+          ) [PositiveTerm]
+        ) [ArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 41
+INFO  18:59:51,363 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       bodovi
+        NotArrayElem(
+        ) [NotArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 45
+INFO  18:59:51,363 - Ispis: PositiveTerm(
+  TermFactor(
+    DesFactor(
+      Designator(
+       bodovi
+        NotArrayElem(
+        ) [NotArrayElem]
+      ) [Designator]
+    ) [DesFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 51
+INFO  18:59:51,363 - Ispis: NotFirstTerm(
+  PositiveTerm(
+    TermFactor(
+      DesFactor(
+        Designator(
+         bodovi
+          NotArrayElem(
+          ) [NotArrayElem]
+        ) [Designator]
+      ) [DesFactor]
+    ) [TermFactor]
+  ) [PositiveTerm]
+  Plus(
+  ) [Plus]
+  TermFactor(
+    ConstFactor(
+      NumberVal(
+       10
+      ) [NumberVal]
+    ) [ConstFactor]
+  ) [TermFactor]
+) [NotFirstTerm] na liniji 53
+INFO  18:59:51,363 - Ispis: PositiveTerm(
+  TermFactor(
+    ConstFactor(
+      CharVal(
+       +
+      ) [CharVal]
+    ) [ConstFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 57
+INFO  18:59:51,363 - Ispis: PositiveTerm(
+  TermFactor(
+    ConstFactor(
+      CharVal(
+       -
+      ) [CharVal]
+    ) [ConstFactor]
+  ) [TermFactor]
+) [PositiveTerm] na liniji 59
+INFO  18:59:51,363 - Print calls = 0
+INFO  18:59:51,364 - Parsiranje uspesno zavrseno!

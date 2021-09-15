@@ -1,0 +1,13 @@
+INFO  13:48:59,318 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test.mj
+INFO  13:48:59,356 - #2 program
+INFO  13:48:59,356 - #50 test
+INFO  13:48:59,356 - #20 {
+INFO  13:48:59,357 - #16 void
+INFO  13:48:59,358 - #50 main
+INFO  13:48:59,358 - #24 (
+INFO  13:48:59,359 - #25 )
+INFO  13:48:59,359 - #20 {
+INFO  13:48:59,359 - #21 }
+INFO  13:48:59,360 - #21 }
+INFO  13:48:59,369 - Print calls = 0
+INFO  13:48:59,370 - Parsiranje uspesno zavrseno!

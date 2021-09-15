@@ -1,0 +1,58 @@
+INFO  14:16:18,450 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test301.mj
+INFO  14:16:18,488 - #2 program
+INFO  14:16:18,488 - #50 test301
+INFO  14:16:18,488 - #8 const
+INFO  14:16:18,489 - #50 int
+INFO  14:16:18,489 - #50 nula
+INFO  14:16:18,490 - #41 =
+INFO  14:16:18,490 - #47 0
+INFO  14:16:18,490 - #12 ;
+INFO  14:16:18,491 - #8 const
+INFO  14:16:18,491 - #50 int
+INFO  14:16:18,491 - #50 jedan
+INFO  14:16:18,492 - #41 =
+INFO  14:16:18,492 - #47 1
+INFO  14:16:18,492 - #12 ;
+INFO  14:16:18,492 - #8 const
+INFO  14:16:18,492 - #50 int
+INFO  14:16:18,492 - #50 pet
+INFO  14:16:18,492 - #41 =
+INFO  14:16:18,492 - #47 5
+INFO  14:16:18,492 - #12 ;
+INFO  14:16:18,496 - #50 int
+INFO  14:16:18,496 - #50 niz
+INFO  14:16:18,496 - #22 [
+INFO  14:16:18,496 - #23 ]
+INFO  14:16:18,497 - #12 ;
+INFO  14:16:18,499 - #50 char
+INFO  14:16:18,499 - #50 nizch
+INFO  14:16:18,499 - #22 [
+INFO  14:16:18,499 - #23 ]
+INFO  14:16:18,499 - #12 ;
+INFO  14:16:18,499 - #20 {
+INFO  14:16:18,499 - #16 void
+INFO  14:16:18,500 - #50 main
+INFO  14:16:18,500 - #24 (
+INFO  14:16:18,501 - #25 )
+INFO  14:16:18,501 - #50 int
+INFO  14:16:18,502 - #50 bodovi
+INFO  14:16:18,502 - #12 ;
+INFO  14:16:18,503 - #50 bool
+INFO  14:16:18,503 - #50 bt
+INFO  14:16:18,504 - #12 ;
+INFO  14:16:18,504 - #20 {
+INFO  14:16:18,504 - #50 bodovi
+INFO  14:16:18,506 - #41 =
+INFO  14:16:18,507 - #47 0
+INFO  14:16:18,507 - #12 ;
+INFO  14:16:18,507 - #50 bodovi
+INFO  14:16:18,508 - #42 ++
+INFO  14:16:18,508 - #12 ;
+INFO  14:16:18,508 - #21 }
+INFO  14:16:18,508 - #21 }
+INFO  14:16:18,518 - Deklarisana promenljiva niz na liniji 9
+INFO  14:16:18,518 - Deklarisana promenljiva nizch na liniji 10
+INFO  14:16:18,518 - Deklarisana promenljiva bodovi na liniji 14
+INFO  14:16:18,518 - Deklarisana promenljiva bt na liniji 15
+INFO  14:16:18,519 - Print calls = 0
+INFO  14:16:18,519 - Parsiranje uspesno zavrseno!

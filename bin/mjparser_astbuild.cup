@@ -76,6 +76,7 @@ nonterminal ConstDeclList ConstDeclList;
 nonterminal ConstDeclSingle ConstDeclSingle;
 nonterminal MethodDeclList MethodDeclList;
 nonterminal MethodDecl MethodDecl;
+nonterminal MethodName MethodName;
 nonterminal MethodTypeName MethodTypeName;
 nonterminal RetType RetType;
 nonterminal Statement Statement;
@@ -149,8 +150,10 @@ MethodDeclList ::= (MethodDeclarations) MethodDeclList:M1 MethodDecl:M2 {: RESUL
 					(NoMethodDecl) {: RESULT=new NoMethodDecl(); :}
 					;
 
-MethodDecl ::= (MethodDecl) VOID IDENT:methName LPARENT RPARENT VarDeclOnly:V1 LBRACE StatementList:S2 RBRACE {: RESULT=new MethodDecl(methName, V1, S2); RESULT.setLine(methNameleft); :} 
+MethodDecl ::= (MethodDecl) VOID MethodName:M1 LPARENT RPARENT VarDeclOnly:V2 LBRACE StatementList:S3 RBRACE {: RESULT=new MethodDecl(M1, V2, S3); RESULT.setLine(M1left); :} 
 			   ;
+			   
+MethodName ::= (MethodName) IDENT:methodName {: RESULT=new MethodName(methodName); RESULT.setLine(methodNameleft); :};
 
 VarDeclOnly		::=	(VarDeclOnlyExpr) VarDeclOnly:V1 VarDecl:V2 {: RESULT=new VarDeclOnlyExpr(V1, V2); RESULT.setLine(V1left); :}
 			  	|	(NoVars) {: RESULT=new NoVars(); :} /*epsilon*/; 

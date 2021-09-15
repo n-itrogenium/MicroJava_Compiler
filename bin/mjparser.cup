@@ -65,7 +65,7 @@ terminal String IDENT;
 terminal IF, ELSE;
 
 nonterminal Program, DeclList, Declaration, VarDecl, VarDeclList, VarDeclSingle, ArrayOptional, ConstDecl;
-nonterminal ConstDeclList, ConstDeclSingle, MethodDeclList, MethodDecl, MethodTypeName, RetType, Statement;
+nonterminal ConstDeclList, ConstDeclSingle, MethodDeclList, MethodDecl, MethodName, MethodTypeName, RetType, Statement;
 nonterminal StatementList, DesignatorStatement, ArrayElement, ElseOpt, RelOp;
 nonterminal PrintParamOpt, AddOp, MulOp, VarDeclOnly;
 
@@ -129,8 +129,10 @@ MethodDeclList ::= (MethodDeclarations) MethodDeclList MethodDecl
 					(NoMethodDecl)
 					;
 
-MethodDecl ::= (MethodDecl) VOID IDENT:methName LPARENT RPARENT VarDeclOnly LBRACE StatementList RBRACE 
+MethodDecl ::= (MethodDecl) VOID MethodName LPARENT RPARENT VarDeclOnly LBRACE StatementList RBRACE 
 			   ;
+			   
+MethodName ::= (MethodName) IDENT:methodName;
 
 VarDeclOnly		::=	(VarDeclOnlyExpr) VarDeclOnly VarDecl
 			  	|	(NoVars) /*epsilon*/; 

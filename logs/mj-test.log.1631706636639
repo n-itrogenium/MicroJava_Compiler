@@ -1,0 +1,19 @@
+INFO  13:50:17,608 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test.mj
+INFO  13:50:17,641 - #2 program
+INFO  13:50:17,642 - #50 test
+INFO  13:50:17,642 - #8 const
+INFO  13:50:17,643 - #50 int
+INFO  13:50:17,643 - #50 nula
+INFO  13:50:17,644 - #41 =
+INFO  13:50:17,644 - #47 0
+INFO  13:50:17,644 - #12 ;
+INFO  13:50:17,645 - #20 {
+INFO  13:50:17,646 - #16 void
+INFO  13:50:17,647 - #50 main
+INFO  13:50:17,647 - #24 (
+INFO  13:50:17,647 - #25 )
+INFO  13:50:17,647 - #20 {
+INFO  13:50:17,648 - #21 }
+INFO  13:50:17,648 - #21 }
+INFO  13:50:17,658 - Print calls = 0
+INFO  13:50:17,659 - Parsiranje uspesno zavrseno!

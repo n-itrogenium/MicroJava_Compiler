@@ -1,0 +1,11 @@
+INFO  13:26:56,511 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test.mj
+INFO  13:26:56,546 - #2 program
+INFO  13:26:56,546 - #50 test
+INFO  13:26:56,546 - #20 {
+INFO  13:26:56,547 - #16 void
+INFO  13:26:56,548 - #50 main
+INFO  13:26:56,548 - #24 (
+INFO  13:26:56,548 - #25 )
+INFO  13:26:56,548 - #20 {
+INFO  13:26:56,549 - #21 }
+INFO  13:26:56,550 - #21 }

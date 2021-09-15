@@ -1,0 +1,7 @@
+INFO  21:21:53,082 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test301.mj
+INFO  21:21:53,089 - #2 program
+INFO  21:21:53,089 - #20 {
+INFO  21:21:53,089 - #21 }
+ERROR 21:21:53,092 - 
+Sintaksna greska na liniji 4
+ERROR 21:21:53,092 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 4

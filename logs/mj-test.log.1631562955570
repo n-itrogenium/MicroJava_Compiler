@@ -1,0 +1,41 @@
+INFO  21:55:34,340 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test301.mj
+INFO  21:55:34,382 - #2 program
+INFO  21:55:34,383 - #50 test301
+INFO  21:55:34,383 - #8 const
+INFO  21:55:34,385 - #50 int
+INFO  21:55:34,385 - #50 nula
+INFO  21:55:34,386 - #41 =
+INFO  21:55:34,386 - #47 0
+INFO  21:55:34,387 - #12 ;
+INFO  21:55:34,388 - #8 const
+INFO  21:55:34,388 - #50 int
+INFO  21:55:34,388 - #50 jedan
+INFO  21:55:34,389 - #41 =
+INFO  21:55:34,389 - #47 1
+INFO  21:55:34,389 - #12 ;
+INFO  21:55:34,389 - #8 const
+INFO  21:55:34,389 - #50 int
+INFO  21:55:34,389 - #50 pet
+INFO  21:55:34,389 - #41 =
+INFO  21:55:34,389 - #47 5
+INFO  21:55:34,389 - #12 ;
+INFO  21:55:34,390 - #50 int
+INFO  21:55:34,390 - #50 niz
+INFO  21:55:34,390 - #22 [
+INFO  21:55:34,390 - #23 ]
+INFO  21:55:34,390 - #12 ;
+INFO  21:55:34,392 - #50 char
+INFO  21:55:34,393 - #50 nizch
+INFO  21:55:34,393 - #22 [
+INFO  21:55:34,393 - #23 ]
+INFO  21:55:34,393 - #12 ;
+INFO  21:55:34,394 - #20 {
+INFO  21:55:34,394 - #16 void
+INFO  21:55:34,395 - #50 main
+INFO  21:55:34,397 - #24 (
+INFO  21:55:34,398 - #25 )
+INFO  21:55:34,398 - #50 int
+INFO  21:55:34,398 - #50 bodovi
+ERROR 21:55:34,398 - 
+Sintaksna greska na liniji 14
+ERROR 21:55:34,399 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 14

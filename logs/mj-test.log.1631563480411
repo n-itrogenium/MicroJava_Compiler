@@ -1,0 +1,43 @@
+INFO  22:04:19,018 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test301.mj
+INFO  22:04:19,065 - #2 program
+INFO  22:04:19,065 - #50 test301
+INFO  22:04:19,065 - #8 const
+INFO  22:04:19,066 - #50 int
+INFO  22:04:19,066 - #50 nula
+INFO  22:04:19,067 - #41 =
+INFO  22:04:19,067 - #47 0
+INFO  22:04:19,067 - #12 ;
+INFO  22:04:19,068 - #8 const
+INFO  22:04:19,069 - #50 int
+INFO  22:04:19,069 - #50 jedan
+INFO  22:04:19,069 - #41 =
+INFO  22:04:19,069 - #47 1
+INFO  22:04:19,069 - #12 ;
+INFO  22:04:19,069 - #8 const
+INFO  22:04:19,069 - #50 int
+INFO  22:04:19,069 - #50 pet
+INFO  22:04:19,069 - #41 =
+INFO  22:04:19,070 - #47 5
+INFO  22:04:19,070 - #12 ;
+INFO  22:04:19,070 - #50 int
+INFO  22:04:19,070 - #50 niz
+INFO  22:04:19,070 - #22 [
+INFO  22:04:19,070 - #23 ]
+INFO  22:04:19,070 - #12 ;
+INFO  22:04:19,073 - #50 char
+INFO  22:04:19,073 - #50 nizch
+INFO  22:04:19,073 - #22 [
+INFO  22:04:19,074 - #23 ]
+INFO  22:04:19,074 - #12 ;
+INFO  22:04:19,074 - #20 {
+INFO  22:04:19,074 - #16 void
+INFO  22:04:19,075 - #50 main
+INFO  22:04:19,076 - #24 (
+INFO  22:04:19,076 - #25 )
+INFO  22:04:19,076 - #50 int
+INFO  22:04:19,076 - #50 bodovi
+INFO  22:04:19,077 - #12 ;
+INFO  22:04:19,077 - #50 bool
+ERROR 22:04:19,077 - 
+Sintaksna greska na liniji 15
+ERROR 22:04:19,078 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 15

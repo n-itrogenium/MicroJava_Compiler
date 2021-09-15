@@ -1,0 +1,41 @@
+INFO  21:54:18,177 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test301.mj
+INFO  21:54:18,212 - #2 program
+INFO  21:54:18,212 - #50 test301
+INFO  21:54:18,212 - #8 const
+INFO  21:54:18,214 - #50 int
+INFO  21:54:18,214 - #50 nula
+INFO  21:54:18,214 - #41 =
+INFO  21:54:18,215 - #47 0
+INFO  21:54:18,215 - #12 ;
+INFO  21:54:18,215 - #8 const
+INFO  21:54:18,216 - #50 int
+INFO  21:54:18,216 - #50 jedan
+INFO  21:54:18,217 - #41 =
+INFO  21:54:18,217 - #47 1
+INFO  21:54:18,217 - #12 ;
+INFO  21:54:18,217 - #8 const
+INFO  21:54:18,217 - #50 int
+INFO  21:54:18,217 - #50 pet
+INFO  21:54:18,217 - #41 =
+INFO  21:54:18,217 - #47 5
+INFO  21:54:18,217 - #12 ;
+INFO  21:54:18,218 - #50 int
+INFO  21:54:18,218 - #50 niz
+INFO  21:54:18,218 - #22 [
+INFO  21:54:18,218 - #23 ]
+INFO  21:54:18,218 - #12 ;
+INFO  21:54:18,220 - #50 char
+INFO  21:54:18,221 - #50 nizch
+INFO  21:54:18,221 - #22 [
+INFO  21:54:18,221 - #23 ]
+INFO  21:54:18,221 - #12 ;
+INFO  21:54:18,221 - #20 {
+INFO  21:54:18,222 - #16 void
+INFO  21:54:18,222 - #50 main
+INFO  21:54:18,223 - #24 (
+INFO  21:54:18,224 - #25 )
+INFO  21:54:18,224 - #50 int
+INFO  21:54:18,224 - #50 bodovi
+ERROR 21:54:18,224 - 
+Sintaksna greska na liniji 14
+ERROR 21:54:18,224 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 14

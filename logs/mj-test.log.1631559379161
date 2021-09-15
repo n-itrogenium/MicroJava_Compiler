@@ -1,0 +1,8 @@
+INFO  20:53:52,271 - Compiling source file: E:\Data\Documents\ETF\7. semestar\PP1\Projekat\pp1lab.templateAST\workspace\MJCompiler\test\test301.mj
+INFO  20:53:52,277 - #2 program
+INFO  20:53:52,277 - #50 test301
+INFO  20:53:52,277 - #20 {
+INFO  20:53:52,278 - #21 }
+ERROR 20:53:52,307 - 
+Sintaksna greska na liniji 10
+ERROR 20:53:52,307 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 10

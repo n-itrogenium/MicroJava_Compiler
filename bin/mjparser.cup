@@ -1,0 +1,209 @@
+  
+package rs.ac.bg.etf.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import rs.ac.bg.etf.pp1.ast.*;
+
+
+parser code {:
+	
+	boolean errorDetected = false;
+	
+	Logger log = Logger.getLogger(getClass());
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+      done_parsing();
+      report_error(message, info);
+    }
+  
+    public void syntax_error(Symbol cur_token) {
+        report_error("\nSintaksna greska", cur_token);
+    }
+  
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+        report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti", cur_token);
+    }
+
+    public void report_error(String message, Object info) {
+    	errorDetected = true;
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.error(msg.toString());
+    }
+    
+    public void report_info(String message, Object info) {
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.info(msg.toString());
+    }
+    
+:}
+
+scan with {:
+	Symbol s = this.getScanner().next_token();
+	if (s != null && s.value != null) 
+		log.info(s.toString() + " " + s.value.toString());
+	return s;
+:}
+
+
+terminal PROGRAM, BREAK, ENUM, DO, WHILE, NEW, CONST, CLASS, EXTENDS, READ;
+terminal SEMI, RETURN, COMMA, PRINT, VOID, CONTINUE,  SWITCH, CASE;
+terminal LBRACE, RBRACE, LBRACKET, RBRACKET, LPARENT, RPARENT, COLON, QUESTION;
+terminal EQUAL, NOTEQ, GREATEREQ, GREATER, LESSEQ, LESS, PLUS, MINUS, MUL, DIV, MOD;
+terminal AND, OR, ASSIGN, INC, DEC, DOT, YIELD, SWAP;
+terminal Integer NUMBER;
+terminal Character CHAR;
+terminal Integer BOOL;
+terminal String IDENT;
+terminal IF, ELSE;
+
+nonterminal Program, DeclList, Declaration, VarDecl, VarDeclList, VarDeclSingle, ArrayOptional, ConstDecl;
+nonterminal ConstDeclList, ConstDeclSingle, MethodDeclList, MethodDecl, MethodTypeName, RetType, Statement;
+nonterminal StatementList, DesignatorStatement, ArrayElement, ElseOpt, RelOp;
+nonterminal PrintParamOpt, AddOp, MulOp, VarDeclOnly;
+
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName, Designator, CondFact;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, ReturnOpt, Term, Condition, CondTerm, Expression;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, ConstInit;
+
+precedence left ELSE;
+
+Program ::= (Program) PROGRAM ProgName:p DeclList LBRACE MethodDeclList RBRACE
+;
+
+ProgName ::= (ProgName) IDENT:pName 
+;
+
+DeclList 		::= (DeclarationList) DeclList Declaration
+				|	(NoDeclaration)
+;
+
+Declaration 	::= (VarDeclaration) VarDecl
+				|	(ConstDeclaration) ConstDecl
+;
+
+VarDecl 		::= (VarDeclExpr) Type VarDeclList SEMI
+				|	(ErrorVarDecl) error
+;
+
+Type ::= (Type) IDENT:typeName 
+;
+
+
+VarDeclList 	::= (VarDeclarationList) 	VarDeclList COMMA VarDeclSingle
+				| 	(VarDeclarationSingle) 	VarDeclSingle
+				|	(ErrorVarDeclList) error
+;
+
+VarDeclSingle 	::= (VarDeclSingle) IDENT:varName ArrayOptional
+;				
+
+ArrayOptional	::= (Array) LBRACKET RBRACKET
+				|	(NotArray) 
+;
+
+ConstDecl	::= (ConstDecl) CONST Type ConstDeclList SEMI
+;
+
+ConstDeclList	::= (ConstDeclarationList) ConstDeclList COMMA ConstDeclSingle
+				| 	(ConstDeclarationSingle) ConstDeclSingle
+;
+
+ConstDeclSingle ::= (ConstDeclSingle) IDENT:constName ASSIGN ConstInit
+;
+
+ConstInit		::= (BooleanVal) BOOL:boolValue
+				 | (NumberVal)	NUMBER:numValue
+				|	(CharVal) CHAR:charValue
+;
+
+MethodDeclList ::= (MethodDeclarations) MethodDeclList MethodDecl
+					|
+					(NoMethodDecl)
+					;
+
+MethodDecl ::= (MethodDecl) VOID IDENT:methName LPARENT RPARENT VarDeclOnly LBRACE StatementList RBRACE 
+			   ;
+
+VarDeclOnly		::=	(VarDeclOnlyExpr) VarDeclOnly VarDecl
+			  	|	(NoVars) /*epsilon*/; 
+
+
+RetType		::= (ReturnType) Type
+				| 	(ReturnVoid) VOID;
+				
+Statement		::= (DesignatorStatementExpr) DesignatorStatement SEMI
+				|	(IfStatement)		IF LPARENT Condition RPARENT Statement ElseOpt
+				|	(ReturnStatement)	RETURN /*ReturnOpt*/ SEMI
+				|	(ReadStatement)		READ LPARENT Designator RPARENT SEMI
+				|	(PrintStatement)	PRINT LPARENT Expression PrintParamOpt RPARENT SEMI
+				| 	(ListStatement)		LBRACE StatementList RBRACE;
+
+StatementList	::= (StmtListExpr) StatementList Statement
+				| 	(NoStmt) ;
+		
+DesignatorStatement ::= (AssignExpr) Designator ASSIGN Expression
+					|	(IncExpr)	Designator INC
+					|	(DecExpr)	Designator DEC;
+
+Designator		::= (Designator) IDENT:designatorName ArrayElement; 
+
+ArrayElement	::= (ArrayElem)	LBRACKET Expression RBRACKET
+				|	(NotArrayElem)
+;
+
+ElseOpt			::= (ElseStatement) ELSE Statement
+				|	(NoElseStatement);
+
+Condition		::= (CondOr) 			Condition OR CondTerm
+				| 	(CondTermSingle)	CondTerm;
+
+CondTerm		::= (CondAnd) 			CondTerm AND CondFact
+				|	(CondFactSingle)	CondFact;
+
+CondFact		::= (CondFactRelOp)		Expression RelOp Expression
+				|	(CondFactNoRelOp) 	Expression;
+
+RelOp			::= (EqualRelOp)		EQUAL 
+				|	(NotEqualRelOp)		NOTEQ 
+				| 	(GreaterEqRelOp)	GREATEREQ 
+				|	(GreaterRelOp)		GREATER 
+				| 	(LessEqRelOp)		LESSEQ 
+				| 	(LessRelOp)			LESS;
+
+Expression			::= (NegativeTerm)	MINUS Term
+				|	(PositiveTerm)	Term
+				|	(NotFirstTerm)	Expression AddOp Term;
+
+Term			::= (TermExpr)		Term MulOp Factor
+				|	(TermFactor)	Factor
+				;
+				
+ReturnOpt	::= (ReturnExpr) Expression
+				|	(NoExpression)
+				;
+
+Factor			::= (DesFactor) 		Designator
+				|	(ConstFactor) 		ConstInit
+				|	(NewArrayFactor)	NEW Type LBRACKET Expression RBRACKET
+				|	(ExprFactor)		LPARENT Expression RPARENT;
+
+
+PrintParamOpt	::= (PrintParam)	COMMA NUMBER:printWidth
+				|	(NoPrintParam) /* epsilon */;
+
+AddOp			::= (Plus)  PLUS
+				|	(Minus) MINUS;
+
+MulOp			::= (MulOperator) MUL
+				|	(DivOperator) DIV
+				|	(ModOperator) MOD;
+
+

@@ -4,6 +4,8 @@ package rs.ac.bg.etf.pp1;
 import java_cup.runtime.*;
 import org.apache.log4j.*;
 import rs.ac.bg.etf.pp1.ast.*;
+import rs.ac.bg.etf.pp1.test.Compiler;
+import rs.ac.bg.etf.pp1.test.CompilerError;
 
 
 parser code {:
@@ -34,6 +36,7 @@ parser code {:
     	if (info instanceof Symbol)
             msg.append (" na liniji ").append(((Symbol)info).left);
         log.error(msg.toString());
+        CompilerExt.errors.add(new CompilerError(((Symbol)info).left, msg.toString(), CompilerError.CompilerErrorType.SYNTAX_ERROR));
     }
     
     public void report_info(String message, Object info) {
@@ -76,21 +79,24 @@ nonterminal ConstDeclList ConstDeclList;
 nonterminal ConstDeclSingle ConstDeclSingle;
 nonterminal MethodDeclList MethodDeclList;
 nonterminal MethodDecl MethodDecl;
-nonterminal MethodName MethodName;
 nonterminal MethodTypeName MethodTypeName;
 nonterminal RetType RetType;
 nonterminal Statement Statement;
 nonterminal StatementList StatementList;
 nonterminal DesignatorStatement DesignatorStatement;
 nonterminal ArrayElement ArrayElement;
+nonterminal IfStart IfStart;
+nonterminal IfEnd IfEnd;
+nonterminal ThenStatement ThenStatement;
 nonterminal ElseOpt ElseOpt;
+nonterminal OrOp OrOp;
 nonterminal RelOp RelOp;
 nonterminal PrintParamOpt PrintParamOpt;
 nonterminal AddOp AddOp;
 nonterminal MulOp MulOp;
 nonterminal VarDeclOnly VarDeclOnly;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName, Designator, CondFact;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName, Designator, CondFact, MethodName;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, ReturnOpt, Term, Condition, CondTerm, Expression;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, ConstInit;
 
@@ -163,7 +169,7 @@ RetType		::= (ReturnType) Type:T1 {: RESULT=new ReturnType(T1); RESULT.setLine(T
 				| 	(ReturnVoid) VOID {: RESULT=new ReturnVoid(); :};
 				
 Statement		::= (DesignatorStatementExpr) DesignatorStatement:D1 SEMI {: RESULT=new DesignatorStatementExpr(D1); RESULT.setLine(D1left); :}
-				|	(IfStatement)		IF LPARENT Condition:C1 RPARENT Statement:S2 ElseOpt:E3 {: RESULT=new IfStatement(C1, S2, E3); RESULT.setLine(C1left); :}
+				|	(IfStatement)		IF IfStart:I1 Condition:C2 IfEnd:I3 ThenStatement:T4 ElseOpt:E5 {: RESULT=new IfStatement(I1, C2, I3, T4, E5); RESULT.setLine(I1left); :}
 				|	(ReturnStatement)	RETURN /*ReturnOpt*/ SEMI {: RESULT=new ReturnStatement(); :}
 				|	(ReadStatement)		READ LPARENT Designator:D1 RPARENT SEMI {: RESULT=new ReadStatement(D1); RESULT.setLine(D1left); :}
 				|	(PrintStatement)	PRINT LPARENT Expression:E1 PrintParamOpt:P2 RPARENT SEMI {: RESULT=new PrintStatement(E1, P2); RESULT.setLine(E1left); :}
@@ -182,11 +188,19 @@ ArrayElement	::= (ArrayElem)	LBRACKET Expression:E1 RBRACKET {: RESULT=new Array
 				|	(NotArrayElem) {: RESULT=new NotArrayElem(); :}
 ;
 
+IfStart			::= (IfStartStmt) LPARENT {: RESULT=new IfStartStmt(); :};
+
+IfEnd			::= (IfEndStmt) RPARENT {: RESULT=new IfEndStmt(); :};
+
+ThenStatement 	::= (ThenStatement) Statement:S1 {: RESULT=new ThenStatement(S1); RESULT.setLine(S1left); :};
+
 ElseOpt			::= (ElseStatement) ELSE Statement:S1 {: RESULT=new ElseStatement(S1); RESULT.setLine(S1left); :}
 				|	(NoElseStatement) {: RESULT=new NoElseStatement(); :};
 
-Condition		::= (CondOr) 			Condition:C1 OR CondTerm:C2 {: RESULT=new CondOr(C1, C2); RESULT.setLine(C1left); :}
+Condition		::= (CondOr) 			Condition:C1 OrOp:O2 CondTerm:C3 {: RESULT=new CondOr(C1, O2, C3); RESULT.setLine(C1left); :}
 				| 	(CondTermSingle)	CondTerm:C1 {: RESULT=new CondTermSingle(C1); RESULT.setLine(C1left); :};
+				
+OrOp			::= (OrOp) OR {: RESULT=new OrOp(); :};
 
 CondTerm		::= (CondAnd) 			CondTerm:C1 AND CondFact:C2 {: RESULT=new CondAnd(C1, C2); RESULT.setLine(C1left); :}
 				|	(CondFactSingle)	CondFact:C1 {: RESULT=new CondFactSingle(C1); RESULT.setLine(C1left); :};

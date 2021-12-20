@@ -1,12 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/8/2021 0:10:13
+// 19/8/2021 4:25:48
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public interface Visitor { 
 
+    public void visit(IfStart IfStart);
     public void visit(ArrayOptional ArrayOptional);
     public void visit(PrintParamOpt PrintParamOpt);
     public void visit(StatementList StatementList);
@@ -33,6 +34,7 @@ public interface Visitor {
     public void visit(CondFact CondFact);
     public void visit(Declaration Declaration);
     public void visit(MethodDeclList MethodDeclList);
+    public void visit(IfEnd IfEnd);
     public void visit(ElseOpt ElseOpt);
     public void visit(ModOperator ModOperator);
     public void visit(DivOperator DivOperator);
@@ -62,10 +64,14 @@ public interface Visitor {
     public void visit(CondFactRelOp CondFactRelOp);
     public void visit(CondFactSingle CondFactSingle);
     public void visit(CondAnd CondAnd);
+    public void visit(OrOp OrOp);
     public void visit(CondTermSingle CondTermSingle);
     public void visit(CondOr CondOr);
     public void visit(NoElseStatement NoElseStatement);
     public void visit(ElseStatement ElseStatement);
+    public void visit(ThenStatement ThenStatement);
+    public void visit(IfEndStmt IfEndStmt);
+    public void visit(IfStartStmt IfStartStmt);
     public void visit(NotArrayElem NotArrayElem);
     public void visit(ArrayElem ArrayElem);
     public void visit(Designator Designator);

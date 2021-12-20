@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
+import rs.ac.bg.etf.pp1.CompilerExt;
+import rs.ac.bg.etf.pp1.test.CompilerError;
 
 
 public class SemanticAnalyzer extends VisitorAdaptor {
@@ -25,6 +27,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		if (line != 0)
 			msg.append (" na liniji ").append(line);
 		log.error(msg.toString());
+		CompilerExt.errors.add(new CompilerError(line, msg.toString(), CompilerError.CompilerErrorType.SEMANTIC_ERROR));
 	}
 	
 
@@ -136,8 +139,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// POTPIS MAIN METODE
 	public void visit(MethodName methodName) {
-		Obj mainMethod = SymbolTable.insert(Obj.Meth, "main", SymbolTable.noType);
-		currentMethod = mainMethod;
+		methodName.obj = SymbolTable.insert(Obj.Meth, "main", SymbolTable.noType);
+		currentMethod = methodName.obj;
 		SymbolTable.openScope();
 	}
 	
@@ -208,6 +211,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		if ((exprType != Struct.Int) && (exprType != Struct.Char) && (exprType != Struct.Bool)) {
 			report_error("Nije moguce vrsiti ispis zadatog tipa", printStmt);
 		}
+		printCallCount++;
 	}
 	
 	

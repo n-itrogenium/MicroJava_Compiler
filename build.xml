@@ -11,6 +11,9 @@
 				<exclude name="SymbolTable.java"/>
 				<exclude name="CodeGenerator.java"/>
 				<exclude name="Yylex.java"/>
+				<exclude name="CompilerExt.java"/>
+				<exclude name="test/Compiler.java"/>
+				<exclude name="test/CompilerError.java"/>
 			</fileset>
 		</delete>
 		<delete>
@@ -62,7 +65,7 @@
 
 	<target name="disasm">
 		<java classname="rs.etf.pp1.mj.runtime.disasm">
-			<arg value="test/program.obj"/>
+			<arg value="test/test.obj"/>
 			<classpath>
 				<pathelement location="lib/mj-runtime.jar"/>
 			</classpath>
@@ -71,7 +74,7 @@
 
 	<target name="runObj" depends="disasm" >
 		<java classname="rs.etf.pp1.mj.runtime.Run">
-			<arg value="test/test301.obj"/>
+			<arg value="test/test.obj"/>
 			<classpath>
 				<pathelement location="lib/mj-runtime.jar"/>
 			</classpath>

@@ -1,12 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/8/2021 0:10:13
+// 19/8/2021 4:25:48
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public abstract class VisitorAdaptor implements Visitor { 
 
+    public void visit(IfStart IfStart) { }
     public void visit(ArrayOptional ArrayOptional) { }
     public void visit(PrintParamOpt PrintParamOpt) { }
     public void visit(StatementList StatementList) { }
@@ -33,6 +34,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(CondFact CondFact) { }
     public void visit(Declaration Declaration) { }
     public void visit(MethodDeclList MethodDeclList) { }
+    public void visit(IfEnd IfEnd) { }
     public void visit(ElseOpt ElseOpt) { }
     public void visit(ModOperator ModOperator) { visit(); }
     public void visit(DivOperator DivOperator) { visit(); }
@@ -62,10 +64,14 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(CondFactRelOp CondFactRelOp) { visit(); }
     public void visit(CondFactSingle CondFactSingle) { visit(); }
     public void visit(CondAnd CondAnd) { visit(); }
+    public void visit(OrOp OrOp) { visit(); }
     public void visit(CondTermSingle CondTermSingle) { visit(); }
     public void visit(CondOr CondOr) { visit(); }
     public void visit(NoElseStatement NoElseStatement) { visit(); }
     public void visit(ElseStatement ElseStatement) { visit(); }
+    public void visit(ThenStatement ThenStatement) { visit(); }
+    public void visit(IfEndStmt IfEndStmt) { visit(); }
+    public void visit(IfStartStmt IfStartStmt) { visit(); }
     public void visit(NotArrayElem NotArrayElem) { visit(); }
     public void visit(ArrayElem ArrayElem) { visit(); }
     public void visit(Designator Designator) { visit(); }

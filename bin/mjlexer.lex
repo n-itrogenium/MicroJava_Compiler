@@ -1,5 +1,8 @@
 package rs.ac.bg.etf.pp1;
 import java_cup.runtime.Symbol;
+import rs.ac.bg.etf.pp1.test.Compiler;
+import rs.ac.bg.etf.pp1.test.CompilerError;
+
 %%
 
 %{
@@ -98,4 +101,5 @@ false							{ return new_symbol(sym.BOOL, new Integer(0)); }
 ([a-z]|[A-Z])[a-z|A-Z|0-9|_]* 	{ return new_symbol(sym.IDENT, yytext()); }
 
 
-. { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); }
+. { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1));
+CompilerExt.errors.add(new CompilerError((yyline+1),("+yytext()+"), CompilerError.CompilerErrorType.LEXICAL_ERROR));}

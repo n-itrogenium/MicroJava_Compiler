@@ -56,7 +56,7 @@ scan with {:
 :}
 
 
-terminal PROGRAM, BREAK, ENUM, DO, WHILE, NEW, CONST, CLASS, EXTENDS, READ;
+terminal PROGRAM, BREAK, ENUM, DO, WHILE, NEW, CONST, CLASS, RECORD, EXTENDS, READ, GOTO;
 terminal SEMI, RETURN, COMMA, PRINT, VOID, CONTINUE,  SWITCH, CASE;
 terminal LBRACE, RBRACE, LBRACKET, RBRACKET, LPARENT, RPARENT, COLON, QUESTION;
 terminal EQUAL, NOTEQ, GREATEREQ, GREATER, LESSEQ, LESS, PLUS, MINUS, MUL, DIV, MOD;
@@ -67,12 +67,12 @@ terminal Integer BOOL;
 terminal String IDENT;
 terminal IF, ELSE;
 
-nonterminal Program, DeclList, Declaration, VarDecl, VarDeclList, VarDeclSingle, ArrayOptional, ConstDecl;
-nonterminal ConstDeclList, ConstDeclSingle, MethodDeclList, MethodDecl, MethodTypeName, RetType, Statement;
-nonterminal StatementList, DesignatorStatement, ArrayElement, IfStart, IfEnd, ThenStatement, ElseOpt, OrOp, RelOp;
+nonterminal Program, DeclList, Declaration, VarDecl, VarDeclList, VarDeclSingle, ArrayOptional, ConstDecl, RecordDecl, RecVarDecl;
+nonterminal ConstDeclList, ConstDeclSingle, MethodDeclList, MethodDecl, MethodTypeName, RetType, Statement, SingleStatement, FormPars, FormalParSingle;
+nonterminal StatementList, DesignatorStatement, ArrayElement, ExpressionList, ExprSingle, ActParsOpt, IfStart, IfEnd, ThenStatement, ElseOpt, OrOp, RelOp;
 nonterminal PrintParamOpt, AddOp, MulOp, VarDeclOnly;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName, Designator, CondFact, MethodName;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName, Designator, CondFact, MethodName, Label;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, ReturnOpt, Term, Condition, CondTerm, Expression;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, ConstInit;
 
@@ -88,9 +88,16 @@ DeclList 		::= (DeclarationList) DeclList Declaration
 				|	(NoDeclaration)
 ;
 
-Declaration 	::= (VarDeclaration) VarDecl
+Declaration 	::= (RecordDeclaration) RecordDecl
+				|	(VarDeclaration) VarDecl
 				|	(ConstDeclaration) ConstDecl
 ;
+
+RecordDecl		::= RECORD IDENT:recordName LBRACE RecVarDecl RBRACE;
+
+RecVarDecl		::= (VarDeclarations) RecVarDecl VarDecl
+				|	(NoVarDecl)
+; 
 
 VarDecl 		::= (VarDeclExpr) Type VarDeclList SEMI
 				|	(ErrorVarDecl) error
@@ -123,47 +130,72 @@ ConstDeclSingle ::= (ConstDeclSingle) IDENT:constName ASSIGN ConstInit
 ;
 
 ConstInit		::= (BooleanVal) BOOL:boolValue
-				 | (NumberVal)	NUMBER:numValue
+				| (NumberVal)	NUMBER:numValue
 				|	(CharVal) CHAR:charValue
 ;
 
-MethodDeclList ::= (MethodDeclarations) MethodDeclList MethodDecl
-					|
-					(NoMethodDecl)
-					;
+MethodDeclList 	::= (MethodDeclarations) MethodDeclList MethodDecl
+				| 	(NoMethodDecl)
+;
 
-MethodDecl ::= (MethodDecl) VOID MethodName LPARENT RPARENT VarDeclOnly LBRACE StatementList RBRACE 
-			   ;
+MethodDecl 		::= (MethodDecl) RetType MethodName LPARENT FormPars RPARENT VarDeclOnly LBRACE StatementList RBRACE 
+;
 			   
-MethodName ::= (MethodName) IDENT:methodName;
+MethodName 		::= (MethodName) IDENT:methodName;
+
+FormPars		::= (FormalParameters) FormPars COMMA FormalParSingle
+				|	(FormParamSingle) FormalParSingle
+;
+
+FormalParSingle	::= (FormalParam) Type IDENT:formParamName ArrayOptional
+				|	(NoFormalParam) ;
 
 VarDeclOnly		::=	(VarDeclOnlyExpr) VarDeclOnly VarDecl
 			  	|	(NoVars) /*epsilon*/; 
 
 
-RetType		::= (ReturnType) Type
+RetType			::= (ReturnType) Type
 				| 	(ReturnVoid) VOID;
 				
-Statement		::= (DesignatorStatementExpr) DesignatorStatement SEMI
+Statement		::= (LabeledStmt) Label COLON SingleStatement
+				| 	(SingleStmt) SingleStatement
+				| 	(ListStatement) LBRACE StatementList RBRACE;
+
+Label			::= (Label) IDENT:labelName;
+				
+SingleStatement		::= (DesignatorStatementExpr) DesignatorStatement SEMI
 				|	(IfStatement)		IF IfStart Condition IfEnd ThenStatement ElseOpt
-				|	(ReturnStatement)	RETURN /*ReturnOpt*/ SEMI
+				|	(DoWhileStatement)	DO Statement WHILE LPARENT Condition RPARENT SEMI
+				|	(BreakStatement)	BREAK SEMI
+				|	(ContinueStatement)	CONTINUE SEMI
+				|	(ReturnStatement)	RETURN ReturnOpt SEMI
 				|	(ReadStatement)		READ LPARENT Designator RPARENT SEMI
 				|	(PrintStatement)	PRINT LPARENT Expression PrintParamOpt RPARENT SEMI
-				| 	(ListStatement)		LBRACE StatementList RBRACE;
+				|	(GotoStatement)		GOTO IDENT:labelName SEMI
+;
 
 StatementList	::= (StmtListExpr) StatementList Statement
 				| 	(NoStmt) ;
 		
 DesignatorStatement ::= (AssignExpr) Designator ASSIGN Expression
 					|	(IncExpr)	Designator INC
-					|	(DecExpr)	Designator DEC;
+					|	(DecExpr)	Designator DEC
+					|	(CallExpr)  Designator LPARENT ExpressionList RPARENT
+;
 
-Designator		::= (Designator) IDENT:designatorName ArrayElement; 
+Designator		::= (DesList) Designator DOT IDENT:designatorName ArrayElement
+				|	(DesSingle) IDENT:designatorName ArrayElement; 
 
 ArrayElement	::= (ArrayElem)	LBRACKET Expression RBRACKET
 				|	(NotArrayElem)
 ;
 
+ExpressionList	::= (ExprList) ExpressionList COMMA ExprSingle
+				| (ExpressionSingle) ExprSingle;
+
+ExprSingle		::= (Expr) Expression
+				| (NoExpr) ;
+				
 IfStart			::= (IfStartStmt) LPARENT;
 
 IfEnd			::= (IfEndStmt) RPARENT;
@@ -203,10 +235,13 @@ ReturnOpt	::= (ReturnExpr) Expression
 				|	(NoExpression)
 				;
 
-Factor			::= (DesFactor) 		Designator
+Factor			::= (DesFactor) 		Designator ActParsOpt
 				|	(ConstFactor) 		ConstInit
 				|	(NewArrayFactor)	NEW Type LBRACKET Expression RBRACKET
 				|	(ExprFactor)		LPARENT Expression RPARENT;
+
+ActParsOpt		::= (ActPars) LPARENT ExpressionList RPARENT
+				| (NoActPars) ;
 
 
 PrintParamOpt	::= (PrintParam)	COMMA NUMBER:printWidth

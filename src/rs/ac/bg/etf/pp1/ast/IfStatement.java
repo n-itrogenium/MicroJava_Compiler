@@ -1,11 +1,11 @@
 // generated with ast extension for cup
 // version 0.8
-// 19/8/2021 4:25:48
+// 21/11/2021 2:56:53
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class IfStatement extends Statement {
+public class IfStatement extends SingleStatement {
 
     private IfStart IfStart;
     private Condition Condition;

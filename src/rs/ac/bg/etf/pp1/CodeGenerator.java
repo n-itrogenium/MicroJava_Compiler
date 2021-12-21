@@ -67,7 +67,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	// DES FACTOR
 	public void visit(DesFactor expression) {
 		Obj obj = expression.getDesignator().obj;
-		if (expression.getDesignator().getArrayElement() instanceof ArrayElem) {
+		if (((DesSingle) expression.getDesignator()).getArrayElement() instanceof ArrayElem) {
 			Code.load(obj);
 			Code.put(Code.dup_x1);
 			Code.put(Code.pop);
@@ -84,7 +84,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	// DODELA VREDNOSTI
 	public void visit(AssignExpr assignment) {
 		Obj obj = assignment.getDesignator().obj;
-		if (assignment.getDesignator().getArrayElement() instanceof ArrayElem) {
+		if (((DesSingle) assignment.getDesignator()).getArrayElement() instanceof ArrayElem) {
 			Code.load(obj);
 			Code.put(Code.dup_x2);
 			Code.put(Code.pop);

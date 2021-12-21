@@ -59,6 +59,8 @@ import rs.ac.bg.etf.pp1.test.CompilerError;
 "continue" 	{ return new_symbol(sym.CONTINUE, yytext()); }
 "case" 		{ return new_symbol(sym.CASE, yytext()); }
 "yield" 	{ return new_symbol(sym.YIELD, yytext()); }
+"goto"	 	{ return new_symbol(sym.GOTO, yytext()); }
+"record"	{ return new_symbol(sym.RECORD, yytext()); }
 
 "+" 		{ return new_symbol(sym.PLUS, yytext()); }
 "-" 		{ return new_symbol(sym.MINUS, yytext()); }

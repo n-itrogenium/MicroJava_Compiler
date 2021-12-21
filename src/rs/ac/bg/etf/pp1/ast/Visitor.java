@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 19/8/2021 4:25:48
+// 21/11/2021 2:56:53
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,20 +9,27 @@ public interface Visitor {
 
     public void visit(IfStart IfStart);
     public void visit(ArrayOptional ArrayOptional);
+    public void visit(ActParsOpt ActParsOpt);
+    public void visit(FormalParSingle FormalParSingle);
     public void visit(PrintParamOpt PrintParamOpt);
     public void visit(StatementList StatementList);
+    public void visit(ExpressionList ExpressionList);
+    public void visit(RecordDecl RecordDecl);
     public void visit(Factor Factor);
     public void visit(CondTerm CondTerm);
     public void visit(DeclList DeclList);
+    public void visit(Designator Designator);
     public void visit(Term Term);
     public void visit(RetType RetType);
     public void visit(Condition Condition);
     public void visit(ArrayElement ArrayElement);
     public void visit(MulOp MulOp);
     public void visit(ConstDeclList ConstDeclList);
-    public void visit(RelOp RelOp);
+    public void visit(ExprSingle ExprSingle);
     public void visit(ReturnOpt ReturnOpt);
     public void visit(VarDeclOnly VarDeclOnly);
+    public void visit(RelOp RelOp);
+    public void visit(RecVarDecl RecVarDecl);
     public void visit(VarDeclList VarDeclList);
     public void visit(MethodTypeName MethodTypeName);
     public void visit(AddOp AddOp);
@@ -34,7 +41,9 @@ public interface Visitor {
     public void visit(CondFact CondFact);
     public void visit(Declaration Declaration);
     public void visit(MethodDeclList MethodDeclList);
+    public void visit(SingleStatement SingleStatement);
     public void visit(IfEnd IfEnd);
+    public void visit(FormPars FormPars);
     public void visit(ElseOpt ElseOpt);
     public void visit(ModOperator ModOperator);
     public void visit(DivOperator DivOperator);
@@ -43,6 +52,8 @@ public interface Visitor {
     public void visit(Plus Plus);
     public void visit(NoPrintParam NoPrintParam);
     public void visit(PrintParam PrintParam);
+    public void visit(NoActPars NoActPars);
+    public void visit(ActPars ActPars);
     public void visit(ExprFactor ExprFactor);
     public void visit(NewArrayFactor NewArrayFactor);
     public void visit(ConstFactor ConstFactor);
@@ -72,24 +83,41 @@ public interface Visitor {
     public void visit(ThenStatement ThenStatement);
     public void visit(IfEndStmt IfEndStmt);
     public void visit(IfStartStmt IfStartStmt);
+    public void visit(NoExpr NoExpr);
+    public void visit(Expr Expr);
+    public void visit(ExpressionSingle ExpressionSingle);
+    public void visit(ExprList ExprList);
     public void visit(NotArrayElem NotArrayElem);
     public void visit(ArrayElem ArrayElem);
-    public void visit(Designator Designator);
+    public void visit(DesSingle DesSingle);
+    public void visit(DesList DesList);
+    public void visit(CallExpr CallExpr);
     public void visit(DecExpr DecExpr);
     public void visit(IncExpr IncExpr);
     public void visit(AssignExpr AssignExpr);
     public void visit(NoStmt NoStmt);
     public void visit(StmtListExpr StmtListExpr);
-    public void visit(ListStatement ListStatement);
+    public void visit(GotoStatement GotoStatement);
     public void visit(PrintStatement PrintStatement);
     public void visit(ReadStatement ReadStatement);
     public void visit(ReturnStatement ReturnStatement);
+    public void visit(ContinueStatement ContinueStatement);
+    public void visit(BreakStatement BreakStatement);
+    public void visit(DoWhileStatement DoWhileStatement);
     public void visit(IfStatement IfStatement);
     public void visit(DesignatorStatementExpr DesignatorStatementExpr);
+    public void visit(Label Label);
+    public void visit(ListStatement ListStatement);
+    public void visit(SingleStmt SingleStmt);
+    public void visit(LabeledStmt LabeledStmt);
     public void visit(ReturnVoid ReturnVoid);
     public void visit(ReturnType ReturnType);
     public void visit(NoVars NoVars);
     public void visit(VarDeclOnlyExpr VarDeclOnlyExpr);
+    public void visit(NoFormalParam NoFormalParam);
+    public void visit(FormalParam FormalParam);
+    public void visit(FormParamSingle FormParamSingle);
+    public void visit(FormalParameters FormalParameters);
     public void visit(MethodName MethodName);
     public void visit(MethodDecl MethodDecl);
     public void visit(NoMethodDecl NoMethodDecl);
@@ -110,8 +138,12 @@ public interface Visitor {
     public void visit(Type Type);
     public void visit(ErrorVarDecl ErrorVarDecl);
     public void visit(VarDeclExpr VarDeclExpr);
+    public void visit(NoVarDecl NoVarDecl);
+    public void visit(VarDeclarations VarDeclarations);
+    public void visit(RecordDeclDerived1 RecordDeclDerived1);
     public void visit(ConstDeclaration ConstDeclaration);
     public void visit(VarDeclaration VarDeclaration);
+    public void visit(RecordDeclaration RecordDeclaration);
     public void visit(NoDeclaration NoDeclaration);
     public void visit(DeclarationList DeclarationList);
     public void visit(ProgName ProgName);

@@ -1,11 +1,11 @@
 // generated with ast extension for cup
 // version 0.8
-// 19/8/2021 4:25:48
+// 21/11/2021 2:56:53
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class PrintStatement extends Statement {
+public class PrintStatement extends SingleStatement {
 
     private Expression Expression;
     private PrintParamOpt PrintParamOpt;

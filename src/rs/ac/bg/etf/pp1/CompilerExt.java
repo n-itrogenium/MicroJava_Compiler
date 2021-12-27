@@ -50,7 +50,7 @@ public class CompilerExt implements Compiler {
 	        log.info("Print calls = " + semanticCheck.printCallCount);
 	        SymbolTable.dump();
 	        
-	        if (!p.errorDetected /*&& semanticCheck.passed()*/) {
+	        if (!p.errorDetected && semanticCheck.passed()) {
 	        	/*File objFile = new File(outputFilePath);
 	        	log.info("Generating bytecode file: " + objFile.getAbsolutePath());
 	        	if (objFile.exists())

@@ -1,4 +1,9 @@
 package rs.ac.bg.etf.pp1;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
@@ -16,6 +21,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	Struct currentType = SymbolTable.noType;
 	boolean returnFound = false;
 	int nVars;
+	HashMap<SyntaxNode, String> pendingJumps = new HashMap<SyntaxNode, String>();
 
 	Logger log = Logger.getLogger(getClass());
 	
@@ -61,14 +67,25 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// DEFINICIJA LABELE
 	public void visit(LabeledStmt labeledStmt) {
-		Label label = labeledStmt.getLabel();
-		Obj labelObj = SymbolTable.find(label.getLabelName());
+		String label = labeledStmt.getLabel().getLabelName();
+		Obj labelObj = SymbolTable.find(label);
 		if (labelObj != SymbolTable.noObj) {
-			report_error("Labela '" + label.getLabelName() + "' je vec definisana", label);
+			report_error("Labela '" + label + "' je vec definisana", labeledStmt);
 		}
 		else { 
-			int value = 0; // Offset labele u programu, promeniti!
-			SymbolTable.insert(Obj.Con, label.getLabelName(), SymbolTable.nullType).setAdr(value); // proveriti da li treba nullType
+			int offset = labeledStmt.getLine();
+			SymbolTable.insert(Obj.Con, label, SymbolTable.noType).setAdr(offset);
+			pendingJumps.values().remove(label);
+			report_info("Definisana labela '" + label + "'", labeledStmt);
+		}
+	}
+	
+	// SKOK NA LABELU
+	public void visit(GotoStatement gotoStatement) {
+		String label = gotoStatement.getLabelName();
+		Obj labelObj = SymbolTable.find(label);
+		if (labelObj == SymbolTable.noObj) {
+			pendingJumps.put(gotoStatement, label);
 		}
 	}
 	
@@ -162,6 +179,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		SymbolTable.chainLocalSymbols(currentMethod);
 		SymbolTable.closeScope();
 		currentMethod = null;
+		pendingJumps.forEach((statement, label) -> report_error("Labela '" + label + "' nije definisana", statement));
 	}
 	
 

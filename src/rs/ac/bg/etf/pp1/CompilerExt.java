@@ -43,12 +43,12 @@ public class CompilerExt implements Compiler {
 	        Symbol s = p.parse();  //pocetak parsiranja
 	        SyntaxNode prog = (SyntaxNode)(s.value);
 	        
-			/*SymbolTable.init(); // Universe scope
+			SymbolTable.init(); // Universe scope
 			SemanticAnalyzer semanticCheck = new SemanticAnalyzer();
 			prog.traverseBottomUp(semanticCheck);
 			
 	        log.info("Print calls = " + semanticCheck.printCallCount);
-	        SymbolTable.dump();*/
+	        SymbolTable.dump();
 	        
 	        if (!p.errorDetected /*&& semanticCheck.passed()*/) {
 	        	/*File objFile = new File(outputFilePath);

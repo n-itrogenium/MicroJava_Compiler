@@ -183,8 +183,7 @@ DesignatorStatement ::= (AssignExpr) Designator ASSIGN Expression
 					|	(CallExpr)  Designator LPARENT ExpressionList RPARENT
 ;
 
-Designator		::= (DesList) Designator DOT IDENT:designatorName ArrayElement
-				|	(DesSingle) IDENT:designatorName ArrayElement; 
+Designator		::= (Designator) IDENT:designatorName ArrayElement; 
 
 ArrayElement	::= (ArrayElem)	LBRACKET Expression RBRACKET
 				|	(NotArrayElem)

@@ -157,7 +157,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		Designator designator = assignment.getDesignator();
 		Expression expression = assignment.getExpression();
 		
-		Obj desObj = SymbolTable.find(((DesSingle)designator).getDesignatorName());
+		Obj desObj = SymbolTable.find(designator.getDesignatorName());
 		if ((desObj.getKind() != Obj.Var) && (desObj.getKind() != Obj.Elem))
 			report_error("Vrednost izraza je moguce dodeliti samo promenljivoj ili elementu niza", assignment);
 		
@@ -232,12 +232,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// DESIGNATOR
 	public void visit(Designator designator){
-		Obj obj = SymbolTable.find(((DesSingle)designator).getDesignatorName());
+		Obj obj = SymbolTable.find(designator.getDesignatorName());
 		if (obj == SymbolTable.noObj) { 
-			report_error("Ime " + ((DesSingle)designator).getDesignatorName() + " nije deklarisano! ", designator);
+			report_error("Ime " + designator.getDesignatorName() + " nije deklarisano! ", designator);
 		}
 		designator.obj = obj;
-		if (((DesSingle)designator).getArrayElement() instanceof ArrayElem) // koristimo polje druge namene za ove potrebe
+		if (designator.getArrayElement() instanceof ArrayElem) // koristimo polje druge namene za ove potrebe
 			designator.obj.setFpPos(1);
 		else
 			designator.obj.setFpPos(0);

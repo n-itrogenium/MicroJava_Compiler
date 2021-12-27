@@ -9,19 +9,7 @@ program test301
 	int niz[];
 	char nizch[];
 	
-	record rec { 
-		int a;
-		int b;
-	}
-	
 {
-	int funkcija(int a) 
-		int x, y;
-	{ 
-		x = 3;
-		y = 4;
-		return x + y;
-	}
 	
 	void main()	
 		int bodovi;
@@ -33,13 +21,7 @@ program test301
 		bodovi = bodovi * pet;
 		bodovi--;
 		print(bodovi); 
-		//bt++;
 		
-		bodovi = funkcija(x, y+z) * funkcija(y);
-		bodovi = rec.a;
-		
-		funkcija(bodovi);
-			
 		goto skip; 
 		
 		do { 

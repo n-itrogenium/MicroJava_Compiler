@@ -59,6 +59,19 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 		SymbolTable.openScope();     	
 	}
 	
+	// DEFINICIJA LABELE
+	public void visit(LabeledStmt labeledStmt) {
+		Label label = labeledStmt.getLabel();
+		Obj labelObj = SymbolTable.find(label.getLabelName());
+		if (labelObj != SymbolTable.noObj) {
+			report_error("Labela '" + label.getLabelName() + "' je vec definisana", label);
+		}
+		else { 
+			int value = 0; // Offset labele u programu, promeniti!
+			SymbolTable.insert(Obj.Con, label.getLabelName(), SymbolTable.nullType).setAdr(value); // proveriti da li treba nullType
+		}
+	}
+	
 
 	// TIP
 	public void visit(Type type) {

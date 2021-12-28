@@ -213,6 +213,7 @@ DesignatorStatement ::= (AssignExpr) Designator:D1 ASSIGN Expression:E2 {: RESUL
 					|	(IncExpr)	Designator:D1 INC {: RESULT=new IncExpr(D1); RESULT.setLine(D1left); :}
 					|	(DecExpr)	Designator:D1 DEC {: RESULT=new DecExpr(D1); RESULT.setLine(D1left); :}
 					|	(CallExpr)  Designator:D1 LPARENT ExpressionList:E2 RPARENT {: RESULT=new CallExpr(D1, E2); RESULT.setLine(D1left); :}
+					|	(ErrorExpr) error {: RESULT=new ErrorExpr(); :}
 ;
 
 Designator		::= (Designator) IDENT:designatorName ArrayElement:A1 {: RESULT=new Designator(designatorName, A1); RESULT.setLine(designatorNameleft); :}; 

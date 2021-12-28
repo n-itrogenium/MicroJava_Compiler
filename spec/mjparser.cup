@@ -181,6 +181,7 @@ DesignatorStatement ::= (AssignExpr) Designator ASSIGN Expression
 					|	(IncExpr)	Designator INC
 					|	(DecExpr)	Designator DEC
 					|	(CallExpr)  Designator LPARENT ExpressionList RPARENT
+					|	(ErrorExpr) error
 ;
 
 Designator		::= (Designator) IDENT:designatorName ArrayElement; 

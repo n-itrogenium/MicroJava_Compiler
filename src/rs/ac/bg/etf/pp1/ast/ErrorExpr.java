@@ -5,20 +5,9 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class NumberVal extends ConstInit {
+public class ErrorExpr extends DesignatorStatement {
 
-    private Integer numValue;
-
-    public NumberVal (Integer numValue) {
-        this.numValue=numValue;
-    }
-
-    public Integer getNumValue() {
-        return numValue;
-    }
-
-    public void setNumValue(Integer numValue) {
-        this.numValue=numValue;
+    public ErrorExpr () {
     }
 
     public void accept(Visitor visitor) {
@@ -39,13 +28,10 @@ public class NumberVal extends ConstInit {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("NumberVal(\n");
-
-        buffer.append(" "+tab+numValue);
-        buffer.append("\n");
+        buffer.append("ErrorExpr(\n");
 
         buffer.append(tab);
-        buffer.append(") [NumberVal]");
+        buffer.append(") [ErrorExpr]");
         return buffer.toString();
     }
 }

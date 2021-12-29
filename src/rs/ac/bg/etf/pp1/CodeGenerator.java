@@ -3,6 +3,8 @@ package rs.ac.bg.etf.pp1;
 import rs.ac.bg.etf.pp1.ast.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -15,9 +17,11 @@ public class CodeGenerator extends VisitorAdaptor {
 	
 	private int varCount;
 	private int mainPc;
+	private int previousPC = 0;
 	
 	private Stack<ArrayList<Integer>> thenJumps = new Stack<>();
 	private Stack<ArrayList<Integer>> elseJumps = new Stack<>();
+	private HashMap<String, List<Integer>> gotoJumps = new HashMap<String, List<Integer>>();
 	
 	public int getMainPc() {
 		return mainPc;
@@ -34,6 +38,51 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put(Code.enter);
 		Code.put(method.obj.getLevel());
 		Code.put(method.obj.getLocalSymbols().size());
+	}
+	
+	
+	
+	// DEFINICIJA LABELE
+	public void visit(LabeledStmt labeledStmt) { 
+		String labelName = labeledStmt.getLabel().getLabelName();
+		SymbolTable.find(labelName).setAdr(previousPC);
+		System.out.println("Adresa labele: " + previousPC);
+		if (gotoJumps.containsKey(labelName)) {
+			List<Integer> addrList = gotoJumps.get(labelName);
+			for (Integer i : addrList) { 
+				System.out.println("Adresa na kojoj se vrsi fixup: " + i);
+				Code.fixup(i); 
+				System.out.println("Novi sadrzaj: " + Code.get(i)+Code.get(i+1));
+			}
+			gotoJumps.remove(labelName);
+		}
+		previousPC = Code.pc;
+		System.out.println("PC = " + Code.pc);
+		/*gotoJumps.forEach((address, label) -> {
+				if (label == labelName)
+					Code.fixup(address);
+			}
+		)*/
+	}
+	
+	public void visit(SingleStmt stmt) {
+		previousPC = Code.pc;
+		System.out.println("PC = " + Code.pc);
+	}
+	
+	// SKOK NA LABELU
+	public void visit(GotoStatement gotoStatement) { 
+		String label = gotoStatement.getLabelName();
+		int address = SymbolTable.find(label).getAdr();
+		if (!gotoJumps.containsKey(label))
+			gotoJumps.put(label, new LinkedList<Integer>());
+		if (address == -1) {
+			Code.putJump(0);
+			gotoJumps.get(label).add(Code.pc - 2);
+		}
+		else
+			Code.putJump(address);
+		System.out.println("Adresa labele " + gotoStatement.getLabelName() + ": " + address);
 	}
 	
 	
@@ -98,7 +147,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 	
 	
-	// INKRE//////////////MENTIRANJE
+	// INKREMENTIRANJE
 	public void visit(IncExpr inc) {
 		Code.load(inc.getDesignator().obj);
 		Code.loadConst(1);
@@ -209,6 +258,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put((newArray.getType().struct.getKind() == Struct.Int) ? 1 : 0);
 	}
 	
+	/*
 	
 	// POCETAK IF USLOVA
 	public void visit(IfStartStmt ifStart) {
@@ -219,14 +269,14 @@ public class CodeGenerator extends VisitorAdaptor {
 	
 	// KRAJ IF USLOVA
 	public void visit(IfEndStmt ifEnd) {
-		/*while (!thenJumps.peek().isEmpty())
-			Code.fixup(thenJumps.peek().remove(0));*/
+		//while (!thenJumps.peek().isEmpty())
+		//	Code.fixup(thenJumps.peek().remove(0));
 		thenJumps.pop().forEach(Code::fixup);
 	}
 	
 	
 	// USLOV SA RELACIONIM OPERATOROM
-	public void visit(CondFactRelOp condition) {
+	 public void visit(CondFactRelOp condition) {
 		RelOp relOp = condition.getRelOp();
 		
 		elseJumps.peek().add(Code.pc + 1);
@@ -250,7 +300,7 @@ public class CodeGenerator extends VisitorAdaptor {
 			Code.putFalseJump(Code.le, 0);
 		
 		
-	}
+	} 
 	
 	
 	// USLOV BEZ RELACIONOG OPERATORA
@@ -265,8 +315,8 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(OrOp orOp) {
 		thenJumps.peek().add(Code.pc + 1);
 		Code.putJump(0);
-		/*while (!elseJumps.peek().isEmpty())
-			Code.fixup(elseJumps.peek().remove(0));*/
+		//while (!elseJumps.peek().isEmpty())
+		//	Code.fixup(elseJumps.peek().remove(0));
 		elseJumps.peek().forEach(Code::fixup);
 		elseJumps.peek().clear();
 	}
@@ -279,18 +329,18 @@ public class CodeGenerator extends VisitorAdaptor {
 			thenJumps.peek().add(Code.pc + 1);
 			Code.putJump(0);
 		}
-		/*while (!elseJumps.peek().isEmpty())
-			Code.fixup(elseJumps.peek().remove(0));*/
+		//while (!elseJumps.peek().isEmpty())
+		//	Code.fixup(elseJumps.peek().remove(0));
 		elseJumps.pop().forEach(Code::fixup);
 	} 
 	
 	// ELSE GRANA
 	public void visit(ElseStatement elseStmt) {
-		/*while (!thenJumps.peek().isEmpty())
-			Code.fixup(thenJumps.peek().remove(0));*/
+		//while (!thenJumps.peek().isEmpty())
+		//	Code.fixup(thenJumps.peek().remove(0));
 		thenJumps.pop().forEach(Code::fixup);
 	}
 	
-	
+	*/
 	
 }

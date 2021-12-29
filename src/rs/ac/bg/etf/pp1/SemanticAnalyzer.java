@@ -73,8 +73,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 			report_error("Labela '" + label + "' je vec definisana", labeledStmt);
 		}
 		else { 
-			int offset = labeledStmt.getLine();
-			SymbolTable.insert(Obj.Con, label, SymbolTable.noType).setAdr(offset);
+			SymbolTable.insert(Obj.Con, label, SymbolTable.noType).setAdr(-1);
 			pendingJumps.values().remove(label);
 			report_info("Definisana labela '" + label + "'", labeledStmt);
 		}

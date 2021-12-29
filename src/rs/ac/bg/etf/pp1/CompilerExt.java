@@ -51,7 +51,7 @@ public class CompilerExt implements Compiler {
 	        SymbolTable.dump();
 	        
 	        if (!p.errorDetected && semanticCheck.passed()) {
-	        	/*File objFile = new File(outputFilePath);
+	        	File objFile = new File(outputFilePath);
 	        	log.info("Generating bytecode file: " + objFile.getAbsolutePath());
 	        	if (objFile.exists())
 	        		objFile.delete();
@@ -61,7 +61,7 @@ public class CompilerExt implements Compiler {
 	        	prog.traverseBottomUp(codeGenerator);
 	        	Code.dataSize = semanticCheck.nVars;
 	        	Code.mainPc = codeGenerator.getMainPc();
-	        	Code.write(new FileOutputStream(objFile));*/
+	        	Code.write(new FileOutputStream(objFile));
 	     
 	        	log.info("Parsiranje uspesno zavrseno!");
 	        	

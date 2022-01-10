@@ -1,15 +1,11 @@
 package rs.ac.bg.etf.pp1;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
-import rs.ac.bg.etf.pp1.CompilerExt;
 import rs.ac.bg.etf.pp1.test.CompilerError;
 
 
@@ -422,7 +418,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	
 	// [IZRAZ]
 	public void visit(ArrayElem arrayElement) {
-		Expression expression = arrayElement.getExpression();
+		//Expression expression = arrayElement.getExpression();
 		int expressionType = arrayElement.getExpression().struct.getKind();
 		if (expressionType != Struct.Int) {
 			//if (!(expressionType == Struct.Array && expression.struct.getElemType().getKind() == Struct.Int)) {

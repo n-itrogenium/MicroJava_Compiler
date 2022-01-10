@@ -2,27 +2,23 @@ package rs.ac.bg.etf.pp1;
 
 import rs.ac.bg.etf.pp1.ast.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
-import rs.ac.bg.etf.pp1.SymbolTable;
 import rs.etf.pp1.mj.runtime.Code;
-import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
 public class CodeGenerator extends VisitorAdaptor {
 	
-	private int varCount;
+	//private int varCount;
 	private int mainPc;
-	private int previousPC = 0;
 	
-	private Stack<ArrayList<Integer>> thenJumps = new Stack<>();
-	private Stack<ArrayList<Integer>> elseJumps = new Stack<>();
+	//private Stack<ArrayList<Integer>> thenJumps = new Stack<>();
+	//private Stack<ArrayList<Integer>> elseJumps = new Stack<>();
 	private HashMap<String, List<Integer>> gotoJumps = new HashMap<String, List<Integer>>();
+	private HashMap<String, Integer> labels = new HashMap<String, Integer>();
 
 	public int getMainPc() {
 		return mainPc;
@@ -41,13 +37,18 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put(method.obj.getLocalSymbols().size());
 	}
 	
+	// DEKLARACIJA METODE
+	public void visit(MethodDecl MethodDecl) {
+		Code.put(Code.exit);
+		Code.put(Code.return_);
+	}
 	
 	
 	// DEFINICIJA LABELE
 	public void visit(Label label) { 
 		String labelName = label.getLabelName();
-		SymbolTable.find(labelName).setAdr(Code.pc);
-		System.out.println("DEFINISANA LABELA " + labelName + ": " + Code.pc);
+		labels.put(labelName, Code.pc);
+		//SymbolTable.find(labelName).setAdr(Code.pc);
 		if (gotoJumps.containsKey(labelName)) {
 			List<Integer> addrList = gotoJumps.get(labelName);
 			for (Integer i : addrList) { 
@@ -55,86 +56,28 @@ public class CodeGenerator extends VisitorAdaptor {
 			}
 			gotoJumps.remove(labelName);
 		}
-		System.out.println("LabeledStmt PC = " + Code.pc);
-	}
-	/*
-	public void visit(LabeledStmt labeledStmt) { 
-		String labelName = labeledStmt.getLabel().getLabelName();
-		SymbolTable.find(labelName).setAdr(previousPC);
-		System.out.println("Adresa labele: " + previousPC);
-		if (gotoJumps.containsKey(labelName)) {
-			List<Integer> addrList = gotoJumps.get(labelName);
-			for (Integer i : addrList) { 
-				System.out.println("Adresa na kojoj se vrsi fixup: " + i);
-				Code.put2(i, (previousPC - i + 1));
-				System.out.println("Novi sadrzaj: " + Code.get(i)+Code.get(i+1));
-			}
-			gotoJumps.remove(labelName);
-		}
-		previousPC = Code.pc;
-		System.out.println("LabeledStmt PC = " + Code.pc);
-		//gotoJumps.forEach((address, label) -> {
-		//		if (label == labelName)
-		//			Code.fixup(address);
-		//	}
-		//)
 	}
 	
-	public void visit(LabeledListStatement labListStmt) { 
-		String labelName = labListStmt.getLabel().getLabelName();
-		SymbolTable.find(labelName).setAdr(previousPC);
-		System.out.println("Adresa labele: " + previousPC);
-		if (gotoJumps.containsKey(labelName)) {
-			List<Integer> addrList = gotoJumps.get(labelName);
-			for (Integer i : addrList) { 
-				System.out.println("Adresa na kojoj se vrsi fixup: " + i);
-				Code.put2(i, (previousPC - i + 1));
-				System.out.println("Novi sadrzaj: " + Code.get(i)+Code.get(i+1));
-			}
-			gotoJumps.remove(labelName);
-		}
-		previousPC = Code.pc;
-		System.out.println("LabListStmt PC = " + Code.pc);
-		//gotoJumps.forEach((address, label) -> {
-		//		if (label == labelName)
-		//			Code.fixup(address);
-		//	}
-		//)
-	} */
-	
-	/*
-	public void visit(SingleStmt stmt) {
-		previousPC = Code.pc;
-		System.out.println("SingleStmt PC = " + Code.pc);
-	} */
 	
 	// SKOK NA LABELU
 	public void visit(GotoStatement gotoStatement) { 
 		String label = gotoStatement.getLabelName();
-		int address = SymbolTable.find(label).getAdr();
+		//int address = SymbolTable.find(label).getAdr();
 		if (!gotoJumps.containsKey(label))
 			gotoJumps.put(label, new LinkedList<Integer>());
-		if (address == -1) {
+		if (!labels.containsKey(label)) {
 			Code.putJump(0);
 			gotoJumps.get(label).add(Code.pc - 2);
 		}
 		else
-			Code.putJump(address);
-		System.out.println("Poziv labele " + gotoStatement.getLabelName() + ", adresa: " + address);
+			Code.putJump(labels.get(label));
 	}
 	
 	
 	// DEKLARACIJA PROMENLJIVE
-	public void visit(VarDecl VarDecl) {
+	/*public void visit(VarDecl VarDecl) {
 		varCount++;
-	}
-	
-	
-	// DEKLARACIJA METODE
-	public void visit(MethodDecl MethodDecl) {
-		Code.put(Code.exit);
-		Code.put(Code.return_);
-	}
+	}*/
 	
 	
 	// RETURN SA IZRAZOM
@@ -196,7 +139,6 @@ public class CodeGenerator extends VisitorAdaptor {
 	
 	// DEKREMENTIRANJE
 	public void visit(DecExpr dec) {
-		Code.load(dec.getDesignator().obj);
 		Code.loadConst(1);
 		Code.put(Code.sub);
 		Code.store(dec.getDesignator().obj);

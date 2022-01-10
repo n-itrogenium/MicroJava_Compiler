@@ -5,17 +5,19 @@ program test301
 	void main()	
 		int bodovi;
 	{
-		bodovi = 0;
-		goto nova;
+		read(bodovi);
 		goto skip;
-		print(bodovi);
-		skip: bodovi = 8;
-		print(bodovi);
-		nova: 
-		{
-			bodovi = 2;
-			print(bodovi);
-		}
+		
+		prev: bodovi++;
+		print(bodovi, 2);
+		goto end;
+		
+		skip: bodovi++;
+		print(bodovi, 2);
+		goto prev;
+		
+		end: bodovi++;
+		print(bodovi, 2);
 	}
 }
 

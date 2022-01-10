@@ -66,16 +66,16 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	}
 	
 	// DEFINICIJA LABELE
-	public void visit(LabeledStmt labeledStmt) {
-		String label = labeledStmt.getLabel().getLabelName();
-		Obj labelObj = SymbolTable.find(label);
+	public void visit(Label label) {
+		String labelName = label.getLabelName();
+		Obj labelObj = SymbolTable.find(labelName);
 		if (labelObj != SymbolTable.noObj) {
-			report_error("Labela '" + label + "' je vec definisana", labeledStmt);
+			report_error("Labela '" + labelName + "' je vec definisana", label);
 		}
 		else { 
-			SymbolTable.insert(Obj.Con, label, SymbolTable.noType).setAdr(-1);
-			pendingJumps.values().remove(label);
-			report_info("Definisana labela '" + label + "'", labeledStmt);
+			SymbolTable.insert(Obj.Con, labelName, SymbolTable.noType).setAdr(-1);
+			pendingJumps.values().remove(labelName);
+			report_info("Definisana labela '" + labelName + "'", label);
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	public void visit(GotoStatement gotoStatement) {
 		String label = gotoStatement.getLabelName();
 		Obj labelObj = SymbolTable.find(label);
-		if (labelObj == SymbolTable.noObj) {
+		if (labelObj == SymbolTable.noObj && !pendingJumps.values().contains(label)) {
 			pendingJumps.put(gotoStatement, label);
 		}
 	}

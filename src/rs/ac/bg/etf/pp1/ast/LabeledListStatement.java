@@ -5,13 +5,24 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ListStatement extends Statement {
+public class LabeledListStatement extends Statement {
 
+    private Label Label;
     private StatementList StatementList;
 
-    public ListStatement (StatementList StatementList) {
+    public LabeledListStatement (Label Label, StatementList StatementList) {
+        this.Label=Label;
+        if(Label!=null) Label.setParent(this);
         this.StatementList=StatementList;
         if(StatementList!=null) StatementList.setParent(this);
+    }
+
+    public Label getLabel() {
+        return Label;
+    }
+
+    public void setLabel(Label Label) {
+        this.Label=Label;
     }
 
     public StatementList getStatementList() {
@@ -27,15 +38,18 @@ public class ListStatement extends Statement {
     }
 
     public void childrenAccept(Visitor visitor) {
+        if(Label!=null) Label.accept(visitor);
         if(StatementList!=null) StatementList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
+        if(Label!=null) Label.traverseTopDown(visitor);
         if(StatementList!=null) StatementList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
+        if(Label!=null) Label.traverseBottomUp(visitor);
         if(StatementList!=null) StatementList.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -43,7 +57,13 @@ public class ListStatement extends Statement {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ListStatement(\n");
+        buffer.append("LabeledListStatement(\n");
+
+        if(Label!=null)
+            buffer.append(Label.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
+        buffer.append("\n");
 
         if(StatementList!=null)
             buffer.append(StatementList.toString("  "+tab));
@@ -52,7 +72,7 @@ public class ListStatement extends Statement {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ListStatement]");
+        buffer.append(") [LabeledListStatement]");
         return buffer.toString();
     }
 }

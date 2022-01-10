@@ -10,6 +10,7 @@ import java.util.Stack;
 
 import rs.ac.bg.etf.pp1.SymbolTable;
 import rs.etf.pp1.mj.runtime.Code;
+import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
@@ -22,7 +23,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	private Stack<ArrayList<Integer>> thenJumps = new Stack<>();
 	private Stack<ArrayList<Integer>> elseJumps = new Stack<>();
 	private HashMap<String, List<Integer>> gotoJumps = new HashMap<String, List<Integer>>();
-	
+
 	public int getMainPc() {
 		return mainPc;
 	}
@@ -43,6 +44,20 @@ public class CodeGenerator extends VisitorAdaptor {
 	
 	
 	// DEFINICIJA LABELE
+	public void visit(Label label) { 
+		String labelName = label.getLabelName();
+		SymbolTable.find(labelName).setAdr(Code.pc);
+		System.out.println("DEFINISANA LABELA " + labelName + ": " + Code.pc);
+		if (gotoJumps.containsKey(labelName)) {
+			List<Integer> addrList = gotoJumps.get(labelName);
+			for (Integer i : addrList) { 
+				Code.fixup(i);
+			}
+			gotoJumps.remove(labelName);
+		}
+		System.out.println("LabeledStmt PC = " + Code.pc);
+	}
+	/*
 	public void visit(LabeledStmt labeledStmt) { 
 		String labelName = labeledStmt.getLabel().getLabelName();
 		SymbolTable.find(labelName).setAdr(previousPC);
@@ -51,24 +66,47 @@ public class CodeGenerator extends VisitorAdaptor {
 			List<Integer> addrList = gotoJumps.get(labelName);
 			for (Integer i : addrList) { 
 				System.out.println("Adresa na kojoj se vrsi fixup: " + i);
-				Code.fixup(i); 
+				Code.put2(i, (previousPC - i + 1));
 				System.out.println("Novi sadrzaj: " + Code.get(i)+Code.get(i+1));
 			}
 			gotoJumps.remove(labelName);
 		}
 		previousPC = Code.pc;
-		System.out.println("PC = " + Code.pc);
-		/*gotoJumps.forEach((address, label) -> {
-				if (label == labelName)
-					Code.fixup(address);
-			}
-		)*/
+		System.out.println("LabeledStmt PC = " + Code.pc);
+		//gotoJumps.forEach((address, label) -> {
+		//		if (label == labelName)
+		//			Code.fixup(address);
+		//	}
+		//)
 	}
 	
+	public void visit(LabeledListStatement labListStmt) { 
+		String labelName = labListStmt.getLabel().getLabelName();
+		SymbolTable.find(labelName).setAdr(previousPC);
+		System.out.println("Adresa labele: " + previousPC);
+		if (gotoJumps.containsKey(labelName)) {
+			List<Integer> addrList = gotoJumps.get(labelName);
+			for (Integer i : addrList) { 
+				System.out.println("Adresa na kojoj se vrsi fixup: " + i);
+				Code.put2(i, (previousPC - i + 1));
+				System.out.println("Novi sadrzaj: " + Code.get(i)+Code.get(i+1));
+			}
+			gotoJumps.remove(labelName);
+		}
+		previousPC = Code.pc;
+		System.out.println("LabListStmt PC = " + Code.pc);
+		//gotoJumps.forEach((address, label) -> {
+		//		if (label == labelName)
+		//			Code.fixup(address);
+		//	}
+		//)
+	} */
+	
+	/*
 	public void visit(SingleStmt stmt) {
 		previousPC = Code.pc;
-		System.out.println("PC = " + Code.pc);
-	}
+		System.out.println("SingleStmt PC = " + Code.pc);
+	} */
 	
 	// SKOK NA LABELU
 	public void visit(GotoStatement gotoStatement) { 
@@ -82,7 +120,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		}
 		else
 			Code.putJump(address);
-		System.out.println("Adresa labele " + gotoStatement.getLabelName() + ": " + address);
+		System.out.println("Poziv labele " + gotoStatement.getLabelName() + ", adresa: " + address);
 	}
 	
 	

@@ -191,6 +191,7 @@ RetType			::= (ReturnType) Type:T1 {: RESULT=new ReturnType(T1); RESULT.setLine(
 				
 Statement		::= (LabeledStmt) Label:L1 COLON SingleStatement:S2 {: RESULT=new LabeledStmt(L1, S2); RESULT.setLine(L1left); :}
 				| 	(SingleStmt) SingleStatement:S1 {: RESULT=new SingleStmt(S1); RESULT.setLine(S1left); :}
+				|	(LabeledListStatement) Label:L1 COLON LBRACE StatementList:S2 RBRACE {: RESULT=new LabeledListStatement(L1, S2); RESULT.setLine(L1left); :}
 				| 	(ListStatement) LBRACE StatementList:S1 RBRACE {: RESULT=new ListStatement(S1); RESULT.setLine(S1left); :};
 
 Label			::= (Label) IDENT:labelName {: RESULT=new Label(labelName); RESULT.setLine(labelNameleft); :};

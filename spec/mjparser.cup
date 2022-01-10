@@ -159,6 +159,7 @@ RetType			::= (ReturnType) Type
 				
 Statement		::= (LabeledStmt) Label COLON SingleStatement
 				| 	(SingleStmt) SingleStatement
+				|	(LabeledListStatement) Label COLON LBRACE StatementList RBRACE
 				| 	(ListStatement) LBRACE StatementList RBRACE;
 
 Label			::= (Label) IDENT:labelName;

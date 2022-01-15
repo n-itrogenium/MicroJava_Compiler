@@ -139,6 +139,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	
 	// DEKREMENTIRANJE
 	public void visit(DecExpr dec) {
+		Code.load(dec.getDesignator().obj);
 		Code.loadConst(1);
 		Code.put(Code.sub);
 		Code.store(dec.getDesignator().obj);
